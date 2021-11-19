@@ -23,10 +23,7 @@ public class IdentityService {
     private RedisService redisService;
 
     @Autowired
-    private LandMapper landMapper;
-
-    @Value("${maxLandNumber}")
-    private Integer maxLandNumber;
+    private LandService landService;
 
     public String login(Farmer farmer) {
         Message massage = new Message();
@@ -51,6 +48,7 @@ public class IdentityService {
         farmer.setMoney(2000);
         farmer.setLevel(1);
         farmerMapper.insert(farmer);
+        landService.initLandsByFarmerId(farmer.getId());
         return new Message().toString();
     }
 

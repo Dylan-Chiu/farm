@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import top.newpointer.farm.pojo.Farmer;
 import top.newpointer.farm.service.IdentityService;
+import top.newpointer.farm.service.LandService;
 
 import javax.servlet.http.HttpServletRequest;
 
