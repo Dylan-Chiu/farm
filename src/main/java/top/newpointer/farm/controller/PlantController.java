@@ -24,10 +24,6 @@ public class PlantController {
                          @RequestParam("speciesId") Integer speciesId) {
         Message message = new Message();
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
-        if(farmerId == null) {
-            message.setState(Status.NO_LOGIN);
-            return message.toString();
-        }
         plantService.addPlant(farmerId, landId, speciesId);
         return message.toString();
     }
@@ -36,10 +32,6 @@ public class PlantController {
     public String getPlantsByFarmerId(HttpServletRequest request) {
         Message message = new Message();
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
-        if(farmerId == null) {
-            message.setState(Status.NO_LOGIN);
-            return message.toString();
-        }
         Plant[] plants = plantService.getPlantsByFarmerId(farmerId);
         message.put("plantList",plants);
         return message.toString();
