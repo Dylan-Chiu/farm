@@ -3,6 +3,7 @@ package top.newpointer.farm.interceptor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.servlet.HandlerInterceptor;
+import org.springframework.web.servlet.ModelAndView;
 import top.newpointer.farm.service.RedisService;
 import top.newpointer.farm.utils.Message;
 import top.newpointer.farm.utils.Status;
@@ -31,5 +32,15 @@ public class TokenInterceptor implements HandlerInterceptor {
             response.getWriter().write(message.toString());
             return false;
         }
+    }
+
+    @Override
+    public void postHandle(HttpServletRequest request, HttpServletResponse response, Object handler, ModelAndView modelAndView) throws Exception {
+
+    }
+
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex) throws Exception {
+
     }
 }
