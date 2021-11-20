@@ -13,4 +13,8 @@ public class SpeciesService {
     @Autowired
     private SpeciesMapper speciesMapper;
 
+    public Species getSpeciesById(int id) {
+        Species species = speciesMapper.selectById(id);
+        return species;
+    }
 }
