@@ -27,4 +27,15 @@ public class CorsConfig implements WebMvcConfigurer {
                 //暴露哪些原始请求头部信息
                 .exposedHeaders("*");
     }
+
+    @Bean
+    public CorsFilter corsFilter() {
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        CorsConfiguration corsConfiguration = new CorsConfiguration();
+        corsConfiguration.addAllowedOrigin("*");
+        corsConfiguration.addAllowedHeader("*");
+        corsConfiguration.addAllowedMethod("*");
+        source.registerCorsConfiguration("/**", corsConfiguration);
+        return new CorsFilter(source);
+    }
 }

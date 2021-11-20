@@ -9,6 +9,7 @@ import top.newpointer.farm.pojo.Plant;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class PlantSet {
@@ -63,13 +64,13 @@ public class PlantSet {
     public void updateRestTime() {
         for (Plant plant : plants) {
             //状态为生长状态的植物更新剩余时间
-            if (plant.getState() == Plant.STATE_GROW) {
+            if (Objects.equals(plant.getState(), Plant.STATE_GROW)) {
                 double after = plant.getRestTime() - plant.getGrowthRate();
                 plant.setRestTime(after > 0 ? after : 0);
             }
 
             //生长结束的植物更新状态
-            if(plant.getState() == Plant.STATE_GROW && plant.getRestTime() == 0) {
+            if(Objects.equals(plant.getState(), Plant.STATE_GROW) && plant.getRestTime() == 0) {
                 plant.setState(Plant.STATE_RIPE);
             }
         }

@@ -23,7 +23,8 @@ public class LandService {
 
     public List<Land> getLandListByFarmerId(Integer farmerId) {
         QueryWrapper<Land> wrapper = new QueryWrapper<>();
-        wrapper.eq("farmer_id",farmerId);
+        wrapper.eq("farmer_id",farmerId)
+                .orderByAsc("land_id");
         List<Land> landList = landMapper.selectList(wrapper);
         return landList;
     }
