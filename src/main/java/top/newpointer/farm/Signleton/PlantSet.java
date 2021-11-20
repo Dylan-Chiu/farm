@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.newpointer.farm.mapper.PlantMapper;
-import top.newpointer.farm.pojo.Plant;
+import top.newpointer.farm.state.*;
 
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
@@ -27,6 +27,20 @@ public class PlantSet {
         //读取数据库数据，初始化PlantSet
         QueryWrapper<Plant> wrapper = new QueryWrapper<>();
         instance.plants = plantMapper.selectList(wrapper);
+
+        //状态模式对象更新
+        for (Plant plant : plants) {
+            if(plant.getState().equals(GrowState.CODE)) {
+                plant.setPlantState(Plant.GROW_STATE);
+            } else if(plant.getState().equals(DeadState.CODE)) {
+                plant.setPlantState(Plant.DEAD_STATE);
+            } else if(plant.getState().equals(WaterState.CODE)) {
+                plant.setPlantState(Plant.WATER_STATE);
+            } else if(plant.getState().equals(RipeState.CODE)) {
+                plant.setPlantState(Plant.RIPE_STATE);
+            }
+        }
+
     }
 
     private List<Plant> plants = null;
@@ -64,16 +78,7 @@ public class PlantSet {
 
     public void updateRestTime() {
         for (Plant plant : plants) {
-            //状态为生长状态的植物更新剩余时间
-            if (Objects.equals(plant.getState(), Plant.STATE_GROW)) {
-                double after = plant.getRestTime() - plant.getGrowthRate();
-                plant.setRestTime(after > 0 ? after : 0);
-            }
-
-            //生长结束的植物更新状态
-            if (Objects.equals(plant.getState(), Plant.STATE_GROW) && plant.getRestTime() == 0) {
-                plant.setState(Plant.STATE_RIPE);
-            }
+            plant.grow();
         }
     }
 
