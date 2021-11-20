@@ -1,15 +1,14 @@
 package top.newpointer.farm.state;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
 import top.newpointer.farm.service.PlantService;
+import top.newpointer.farm.GetBeanUtil;
 
 public class GrowState extends PlantState{
 
     public static final Integer CODE = 0;
 
-    @Autowired
-    private PlantService plantService;
+//    @Autowired此类未注入Spring容器，则也不能使用此方法（@Autowired）获取容器中内容
+    private PlantService plantService = GetBeanUtil.getBean(PlantService.class);
 
     @Override
     public void grow() {
