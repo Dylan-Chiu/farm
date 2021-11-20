@@ -2,14 +2,11 @@ package top.newpointer.farm.service;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import top.newpointer.farm.mapper.FarmerMapper;
-import top.newpointer.farm.mapper.LandMapper;
 import top.newpointer.farm.pojo.Farmer;
-import top.newpointer.farm.pojo.Land;
 import top.newpointer.farm.utils.Message;
-import top.newpointer.farm.utils.Status;
+import top.newpointer.farm.utils.IdentityStatus;
 
 import java.util.UUID;
 
@@ -31,10 +28,10 @@ public class IdentityService {
         wrapper.eq("username", farmer.getUsername());
         Farmer selected = farmerMapper.selectOne(wrapper);
         if (selected == null) { //用户不存在
-            massage.setState(Status.USER_NOT_EXIST);
+            massage.setState(IdentityStatus.USER_NOT_EXIST);
         } else {
             if (!selected.getPassword().equals(farmer.getPassword())) { //密码不等
-                massage.setState(Status.PASSWORD_ERROR);
+                massage.setState(IdentityStatus.PASSWORD_ERROR);
             } else { // 成功登陆
                 String token = UUID.randomUUID().toString();
                 redisService.set(token, selected.getId());

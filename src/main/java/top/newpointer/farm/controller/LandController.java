@@ -6,7 +6,6 @@ import org.springframework.web.bind.annotation.RestController;
 import top.newpointer.farm.pojo.Land;
 import top.newpointer.farm.service.LandService;
 import top.newpointer.farm.utils.Message;
-import top.newpointer.farm.utils.Status;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

@@ -9,7 +9,7 @@ public class Message {
     Map<String, Object> map = new HashMap<>();
 
     public Message() {
-        map.put("status", Status.SUCCEED);//默认正常
+        map.put("status", IdentityStatus.SUCCEED);//默认正常
     }
 
     public void put(String key, Object value) {

@@ -9,7 +9,6 @@ import top.newpointer.farm.pojo.Species;
 import top.newpointer.farm.service.PlantService;
 import top.newpointer.farm.service.SpeciesService;
 import top.newpointer.farm.utils.Message;
-import top.newpointer.farm.utils.Status;
 
 import javax.servlet.http.HttpServletRequest;
 

@@ -3,12 +3,11 @@ package top.newpointer.farm.interceptor;
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import top.newpointer.farm.service.RedisService;
 import top.newpointer.farm.utils.Message;
-import top.newpointer.farm.utils.Status;
+import top.newpointer.farm.utils.IdentityStatus;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -39,7 +38,7 @@ public class TokenInterceptor implements HandlerInterceptor {
             return true;
         } else {
             Message message = new Message();
-            message.setState(Status.NO_LOGIN);
+            message.setState(IdentityStatus.NO_LOGIN);
             response.getWriter().write(message.toString());
             return false;
         }
