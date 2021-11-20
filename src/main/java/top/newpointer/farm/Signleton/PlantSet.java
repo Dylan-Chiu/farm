@@ -1,6 +1,7 @@
 package top.newpointer.farm.Signleton;
 
 import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import top.newpointer.farm.mapper.PlantMapper;
@@ -55,7 +56,7 @@ public class PlantSet {
         this.plants.add(plant);
     }
 
-    public void updateDateIntoDatabase() {
+    public void updatePlantsIntoDatabase() {
         for (Plant plant : plants) {
             plantMapper.updateById(plant);
         }
@@ -70,9 +71,33 @@ public class PlantSet {
             }
 
             //生长结束的植物更新状态
-            if(Objects.equals(plant.getState(), Plant.STATE_GROW) && plant.getRestTime() == 0) {
+            if (Objects.equals(plant.getState(), Plant.STATE_GROW) && plant.getRestTime() == 0) {
                 plant.setState(Plant.STATE_RIPE);
             }
         }
+    }
+
+
+    /**
+     * 同时从PlantSet和数据库中删除植物
+     */
+    public void removePlant(Plant plant) {
+        Integer id = plant.getId();
+        UpdateWrapper<Plant> wrapper = new UpdateWrapper<>();
+        wrapper.eq("id", id);
+        plantMapper.delete(wrapper);
+        plants.remove(plant);
+    }
+
+    public Plant getPlantByFarmerIdAndLandId(int farmerId, int landId) {
+        Plant selected = null;
+        for (Plant plant : plants) {
+            if (plant.getFarmerId().equals(farmerId) &&
+                    plant.getLandId().equals(landId)) {
+                selected = plant;
+                break;
+            }
+        }
+        return selected;
     }
 }

@@ -15,6 +15,6 @@ public class RefreshTask {
         //更新rest_time
         PlantSet.getInstance().updateRestTime();
         //更新数据库
-        PlantSet.getInstance().updateDateIntoDatabase();
+        PlantSet.getInstance().updatePlantsIntoDatabase();
     }
 }

@@ -44,4 +44,11 @@ public class PlantService {
         }
         return plantArray;
     }
+
+    public void removePlantByFarmerIdAndLandId(int farmerId, int landId) {
+        Plant selected = PlantSet.getInstance().getPlantByFarmerIdAndLandId(farmerId, landId);
+        PlantSet.getInstance().removePlant(selected);
+    }
+
+
 }

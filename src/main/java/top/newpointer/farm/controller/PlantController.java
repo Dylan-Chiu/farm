@@ -20,8 +20,8 @@ public class PlantController {
 
     @RequestMapping("/addPlant")
     public String addPlant(HttpServletRequest request,
-                         @RequestParam("landId") Integer landId,
-                         @RequestParam("speciesId") Integer speciesId) {
+                           @RequestParam("landId") Integer landId,
+                           @RequestParam("speciesId") Integer speciesId) {
         Message message = new Message();
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
         plantService.addPlant(farmerId, landId, speciesId);
@@ -33,7 +33,15 @@ public class PlantController {
         Message message = new Message();
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
         Plant[] plants = plantService.getPlantsByFarmerId(farmerId);
-        message.put("plantList",plants);
+        message.put("plantList", plants);
         return message.toString();
+    }
+
+    @RequestMapping("/removePlantByFarmerIdAndLandId")
+    public String removePlantByFarmerIdAndLandId(HttpServletRequest request,
+                                                 @RequestParam("landId") Integer landId) {
+        Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        plantService.removePlantByFarmerIdAndLandId(farmerId, landId);
+        return new Message().toString();
     }
 }
