@@ -33,6 +33,7 @@ public class Plant {
     public void setPlantState(PlantState plantState) {
         this.plantState = plantState;
         this.plantState.setPlant(this);
+        this.setState(plantState.getCODE());
     }
 
     public void grow() {

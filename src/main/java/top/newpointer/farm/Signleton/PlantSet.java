@@ -31,13 +31,13 @@ public class PlantSet {
         //状态模式对象更新
         for (Plant plant : plants) {
             if(plant.getState().equals(GrowState.CODE)) {
-                plant.setPlantState(Plant.GROW_STATE);
+                plant.setPlantState(new GrowState());
             } else if(plant.getState().equals(DeadState.CODE)) {
-                plant.setPlantState(Plant.DEAD_STATE);
+                plant.setPlantState(new DeadState());
             } else if(plant.getState().equals(WaterState.CODE)) {
-                plant.setPlantState(Plant.WATER_STATE);
+                plant.setPlantState(new WaterState());
             } else if(plant.getState().equals(RipeState.CODE)) {
-                plant.setPlantState(Plant.RIPE_STATE);
+                plant.setPlantState(new RipeState());
             }
         }
 

@@ -5,6 +5,11 @@ public class RipeState extends PlantState{
     public static final Integer CODE = 1;
 
     @Override
+    public Integer getCODE() {
+        return CODE;
+    }
+
+    @Override
     public void grow() {
     }
 

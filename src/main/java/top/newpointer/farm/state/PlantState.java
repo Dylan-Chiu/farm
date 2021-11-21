@@ -9,6 +9,8 @@ public abstract class PlantState {
         this.plant = plant;
     }
 
+    public abstract Integer getCODE();
+
     public abstract void grow();
     public abstract String water();
     public abstract String harvest();

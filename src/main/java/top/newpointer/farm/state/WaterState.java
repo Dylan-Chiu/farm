@@ -5,6 +5,11 @@ public class WaterState extends PlantState{
     public static final Integer CODE = -2;
 
     @Override
+    public Integer getCODE() {
+        return CODE;
+    }
+
+    @Override
     public void grow() {
     }
 

@@ -11,6 +11,11 @@ public class GrowState extends PlantState{
     private PlantService plantService = GetBeanUtil.getBean(PlantService.class);
 
     @Override
+    public Integer getCODE() {
+        return CODE;
+    }
+
+    @Override
     public void grow() {
         plantService.grow(super.plant);
         if(super.plant.getRestTime() == 0) {//剩余成熟时间为0，更新状态
