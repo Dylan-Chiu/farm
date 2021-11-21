@@ -25,6 +25,9 @@ public class PlantService {
     @Autowired
     LandService landService;
 
+    @Autowired
+    BackpackSeedService backpackSeedService;
+
     @Value("${maxLandNumber}")
     private Integer maxLandNumber;
 
@@ -41,6 +44,25 @@ public class PlantService {
         plant.setPlantState(new GrowState());
         PlantSet.getInstance().addPlant(plant);
         plantMapper.insert(plant);
+    }
+
+    /**
+     *
+     * @param farmerId
+     * @param landId
+     * @param speciesId
+     * @return 播种是否成功
+     */
+    public Boolean sowSeed(Integer farmerId, Integer landId, Integer speciesId) {
+        Integer seedNumber = backpackSeedService.getOneSeedNumber(farmerId, speciesId);
+        if(seedNumber < 1) {
+            return false;
+        }
+        //土地上添加植物
+        addPlant(farmerId,landId,speciesId);
+        //背包中种子数减一
+        backpackSeedService.alterSeeds(farmerId,speciesId,-1);
+        return true;
     }
 
     public Plant[] getPlantsByFarmerId(int farmerId) {

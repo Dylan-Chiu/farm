@@ -22,13 +22,24 @@ public class PlantController {
     @Autowired
     private SpeciesService speciesService;
 
-    @RequestMapping("/addPlant")
+    //@RequestMapping("/addPlant"),此方法弃用，不可直接添加，需通过sowSeed（通过背包种子数进行播种）
     public String addPlant(HttpServletRequest request,
                            @RequestParam("landId") Integer landId,
                            @RequestParam("speciesId") Integer speciesId) {
         Message message = new Message();
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
         plantService.addPlant(farmerId, landId, speciesId);
+        return message.toString();
+    }
+
+    @RequestMapping("/sowSeed")
+    public String sowSeed(HttpServletRequest request,
+                          @RequestParam("landId") Integer landId,
+                          @RequestParam("speciesId") Integer speciesId) {
+        Message message = new Message();
+        Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        Boolean isSucceed = plantService.sowSeed(farmerId, landId, speciesId);
+        message.put("isSucceed",isSucceed);
         return message.toString();
     }
 
