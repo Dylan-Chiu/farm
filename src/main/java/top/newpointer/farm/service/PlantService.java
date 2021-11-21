@@ -56,7 +56,7 @@ public class PlantService {
 
     public void removePlantByFarmerIdAndLandId(int farmerId, int landId) {
         Plant selected = PlantSet.getInstance().getPlantByFarmerIdAndLandId(farmerId, landId);
-        PlantSet.getInstance().removePlant(selected);
+        selected.dig();
     }
 
     public void grow(Plant plant) {

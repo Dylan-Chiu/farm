@@ -22,13 +22,15 @@ public class Plant {
     private PlantState plantState;//状态模式字段，不存入数据库，要确保和state同步
 
     /**
-     * 设置植物状态，更新两个成员变量（PlantState和State）
+     * 设置植物状态，更新两个成员变量（plantState和state）
      *
      * @param plantState
      */
     public void setPlantState(PlantState plantState) {
+        //更新plantState
         this.plantState = plantState;
         this.plantState.setPlant(this);
+        //更新state
         this.setState(plantState.getCODE());
     }
 
