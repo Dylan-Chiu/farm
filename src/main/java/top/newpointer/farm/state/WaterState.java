@@ -15,7 +15,7 @@ public class WaterState extends PlantState{
 
     @Override
     public String water() {
-        super.plant.setPlantState(Plant.GROW_STATE);
+        super.plant.setPlantState(new GrowState());
         return "植物浇水成功！";
     }
 

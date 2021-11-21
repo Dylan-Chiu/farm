@@ -56,6 +56,11 @@ public class PlantSet {
         return plants;
     }
 
+    /**
+     * 根据FarmerId获取植物列表
+     * @param id FarmerId
+     * @return 植物列表
+     */
     public List<Plant> getPlantsByFarmerId(int id) {
         List<Plant> selected = new ArrayList<>();
         for (Plant plant : plants) {
