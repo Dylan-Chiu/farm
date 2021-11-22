@@ -1,10 +1,13 @@
 package top.newpointer.farm.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.newpointer.farm.mapper.SpeciesMapper;
 import top.newpointer.farm.state.Plant;
 import top.newpointer.farm.pojo.Species;
+
+import java.util.List;
 
 @Service
 public class SpeciesService {
@@ -15,6 +18,12 @@ public class SpeciesService {
     public Species getSpeciesById(int id) {
         Species species = speciesMapper.selectById(id);
         return species;
+    }
+
+    public List<Species> getAllSpecies() {
+        QueryWrapper<Species> wrapper = new QueryWrapper<>();
+        List<Species> speciesList = speciesMapper.selectList(wrapper);
+        return speciesList;
     }
 
     /**

@@ -8,6 +8,8 @@ import top.newpointer.farm.pojo.Species;
 import top.newpointer.farm.service.SpeciesService;
 import top.newpointer.farm.utils.Message;
 
+import java.util.List;
+
 @RestController
 @RequestMapping("/species")
 public class SpeciesController {
@@ -20,6 +22,14 @@ public class SpeciesController {
         Message message = new Message();
         Species species = speciesService.getSpeciesById(id);
         message.put("species",species);
+        return message.toString();
+    }
+
+    @RequestMapping("/getAllSpecies")
+    public String getAllSpecies() {
+        Message message = new Message();
+        List<Species> speciesList = speciesService.getAllSpecies();
+        message.put("speciesList",speciesList);
         return message.toString();
     }
 }
