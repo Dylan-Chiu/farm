@@ -13,6 +13,12 @@ public class FarmerService {
     @Autowired
     private FarmerMapper farmerMapper;
 
+    public Farmer getFarmerById(Integer farmerId) {
+        Farmer farmer = farmerMapper.selectById(farmerId);
+        farmer.setPassword(null);
+        return farmer;
+    }
+
     public Double getMoney(Integer farmerId) {
         Farmer farmer = farmerMapper.selectById(farmerId);
         return farmer.getMoney();
