@@ -7,6 +7,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import top.newpointer.farm.mapper.BackpackSeedMapper;
 import top.newpointer.farm.pojo.BackpackSeed;
+import top.newpointer.farm.pojo.Species;
 
 import java.util.List;
 
@@ -32,6 +33,11 @@ public class BackpackSeedService {
         QueryWrapper<BackpackSeed> wrapper = new QueryWrapper<>();
         wrapper.eq("farmer_id", farmId);
         List<BackpackSeed> seedsNumber = backpackSeedMapper.selectList(wrapper);
+        for (BackpackSeed backpackSeed : seedsNumber) {
+            Integer speciesId = backpackSeed.getSpeciesId();
+            Species species = speciesService.getSpeciesById(speciesId);
+            backpackSeed.setSpecies(species);
+        }
         return seedsNumber;
     }
 
@@ -49,7 +55,7 @@ public class BackpackSeedService {
         queryCountWrapper.eq("farmer_id", farmerId)
                 .eq("species_id",speciesId);
         if (backpackSeedMapper.selectCount(queryCountWrapper) == 0) {//数据库中不存在记录
-            BackpackSeed backpackSeed = new BackpackSeed(farmerId, speciesId, delta);
+            BackpackSeed backpackSeed = new BackpackSeed(farmerId, speciesId, delta,null);
             backpackSeedMapper.insert(backpackSeed);
         } else {//数据中已存在记录
             Integer beforeNumber = getOneSeedNumber(farmerId, speciesId);
