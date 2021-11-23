@@ -3,6 +3,7 @@ package top.newpointer.farm.state;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import top.newpointer.farm.pojo.Species;
 
 import java.util.Date;
 
@@ -21,6 +22,8 @@ public class Plant {
     @TableField(exist = false)
     private PlantState plantState;//状态模式字段，不存入数据库，要确保和state同步
 
+    @TableField(exist = false)
+    private Species species;
     /**
      * 设置植物状态，更新两个成员变量（plantState和state）
      *

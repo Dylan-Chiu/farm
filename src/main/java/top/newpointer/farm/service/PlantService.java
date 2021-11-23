@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import top.newpointer.farm.Signleton.PlantSet;
 import top.newpointer.farm.mapper.PlantMapper;
 import top.newpointer.farm.mapper.SpeciesMapper;
+import top.newpointer.farm.pojo.Species;
 import top.newpointer.farm.state.GrowState;
 import top.newpointer.farm.state.Plant;
 import top.newpointer.farm.state.PlantState;
@@ -23,10 +24,13 @@ public class PlantService {
     private PlantMapper plantMapper;
 
     @Autowired
-    LandService landService;
+    private LandService landService;
 
     @Autowired
-    BackpackSeedService backpackSeedService;
+    private BackpackSeedService backpackSeedService;
+
+    @Autowired
+    private SpeciesService speciesService;
 
     @Value("${maxLandNumber}")
     private Integer maxLandNumber;
@@ -72,6 +76,15 @@ public class PlantService {
         for (Plant plant : plantList) {
             Integer landId = plant.getLandId();
             plantArray[landId] = plant;
+        }
+
+        //装配物种信息对象
+        for (Plant plant : plantArray) {
+            if (plant != null) {
+                Integer speciesId = plant.getSpeciesId();
+                Species species = speciesService.getSpeciesById(speciesId);
+                plant.setSpecies(species);
+            }
         }
         return plantArray;
     }
