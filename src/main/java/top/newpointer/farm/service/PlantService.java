@@ -132,4 +132,14 @@ public class PlantService {
         farmerService.setExperience(farmerId, experience + getExperience);
         return data;
     }
+
+    public void setTimeToDeath(Plant plant) {
+        Species species = speciesService.getSpeciesById(plant.getSpeciesId());
+        double deadTime = species.getDeadTime();
+        plant.setTimeToDeath(deadTime);
+    }
+
+    public void dying(Plant plant) {
+        plant.setTimeToDeath(plant.getTimeToDeath() - 1);
+    }
 }

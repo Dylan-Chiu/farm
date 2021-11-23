@@ -1,8 +1,11 @@
 package top.newpointer.farm.state;
 
-import top.newpointer.farm.pojo.Farmer;
+import top.newpointer.farm.GetBeanUtil;
+import top.newpointer.farm.service.PlantService;
 
 public class WaterState extends PlantState{
+
+    private PlantService plantService = GetBeanUtil.getBean(PlantService.class);
 
     public static final Integer CODE = 2;
 
@@ -29,6 +32,14 @@ public class WaterState extends PlantState{
     @Override
     public void beNeedWaterAtProbability(Double p) {
 
+    }
+
+    @Override
+    public void dying() {
+        plantService.dying(plant);
+        if(plant.getTimeToDeath() == 0) {
+            super.plant.setPlantState(new DeadState());
+        }
     }
 
 }

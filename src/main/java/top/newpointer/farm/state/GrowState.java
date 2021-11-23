@@ -38,6 +38,12 @@ public class GrowState extends PlantState{
     public void beNeedWaterAtProbability(Double p) {
         if(Math.random() < p ) {
             super.plant.setPlantState(new WaterState());
+            plantService.setTimeToDeath(plant);
         }
+    }
+
+    @Override
+    public void dying() {
+
     }
 }

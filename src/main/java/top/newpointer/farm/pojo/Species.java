@@ -14,4 +14,6 @@ public class Species {
     private double profit;
     private Integer experience;
     private double growthTime;
+    //缺水后死亡倒计时时间
+    private double deadTime;
 }

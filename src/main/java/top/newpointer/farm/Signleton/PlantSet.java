@@ -114,4 +114,10 @@ public class PlantSet {
         }
         return selected;
     }
+
+    public void updateDying() {
+        for (Plant plant : plants) {
+            plant.dying();
+        }
+    }
 }

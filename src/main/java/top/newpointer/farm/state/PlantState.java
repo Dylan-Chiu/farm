@@ -21,6 +21,11 @@ public abstract class PlantState {
     public abstract String harvest(Integer farmerId);
     //概率成为缺水状态
     public abstract void beNeedWaterAtProbability(Double p);
+
+    /**
+     * 在缺水状态下，更新死亡时间，并在时间为0时死亡
+     */
+    public abstract void dying();
     /**
      * 所有状态下执行相同操作
      */

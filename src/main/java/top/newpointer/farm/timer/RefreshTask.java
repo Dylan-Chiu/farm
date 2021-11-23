@@ -21,6 +21,8 @@ public class RefreshTask {
         PlantSet.getInstance().updateRestTime();
         //随机缺水状态
         PlantSet.getInstance().beNeedWaterAtProbability(waterProbability);
+        //更新濒死状态
+        PlantSet.getInstance().updateDying();
         //更新数据库
         PlantSet.getInstance().updatePlantsIntoDatabase();
     }

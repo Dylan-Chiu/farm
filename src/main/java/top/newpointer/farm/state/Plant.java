@@ -16,6 +16,7 @@ public class Plant {
     private Integer landId;
     private Integer speciesId;
     private Date sowingTime;
+    private double timeToDeath;
     private Integer state;//数据库字段，保存状态
     private double restTime;
     private double growthRate;
@@ -53,6 +54,10 @@ public class Plant {
 
     public void dig() {
         this.plantState.dig();
+    }
+
+    public void dying() {
+        this.plantState.dying();
     }
 
     /**

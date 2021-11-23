@@ -38,4 +38,9 @@ public class RipeState extends PlantState {
     public void beNeedWaterAtProbability(Double p) {
 
     }
+
+    @Override
+    public void dying() {
+
+    }
 }

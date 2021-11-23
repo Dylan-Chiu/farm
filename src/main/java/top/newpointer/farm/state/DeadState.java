@@ -29,4 +29,11 @@ public class DeadState extends PlantState{
     public void beNeedWaterAtProbability(Double p) {
 
     }
+
+    @Override
+    public void dying() {
+
+    }
+
+
 }
