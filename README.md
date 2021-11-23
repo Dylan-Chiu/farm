@@ -10,9 +10,9 @@ public static final int NO_LOGIN = -3;
 
 #### 植物：
 public static final Integer STATE_GROW = 0;  
-public static final Integer STATE_DEATH = -1;  
-public static final Integer STATE_WATER = -2;  
-public static final Integer STATE_RIPE = 1;  
+public static final Integer STATE_DEATH = 1;  
+public static final Integer STATE_WATER = 2;  
+public static final Integer STATE_RIPE = 3;  
 
 #### 土地：
 public static final Integer TYPE_LOCKED = 0;  
