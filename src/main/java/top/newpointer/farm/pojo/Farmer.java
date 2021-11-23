@@ -13,6 +13,7 @@ public class Farmer {
     private String username;
     private String password;
     private String Nickname;
+    @TableField(exist = false)
     private Integer level;
     private Integer experience;
     private double money;

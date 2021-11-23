@@ -1,5 +1,6 @@
 package top.newpointer.farm.service;
 
+import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -34,10 +35,17 @@ public class FarmerService {
     }
 
     public void setMoney(Integer farmerId, Double money) {
-        Farmer farmer = new Farmer();
-        farmer.setId(farmerId);
-        farmer.setMoney(money);
-        farmerMapper.updateById(farmer);
+        UpdateWrapper wrapper = new UpdateWrapper<Farmer>();
+        wrapper.eq("id", farmerId);
+        wrapper.set("money", money);
+        farmerMapper.update(null, wrapper);
+    }
+
+    public void setExperience(Integer farmerId, Integer experience) {
+        UpdateWrapper wrapper = new UpdateWrapper<Farmer>();
+        wrapper.eq("id", farmerId);
+        wrapper.set("experience", experience);
+        farmerMapper.update(null, wrapper);
     }
 
     public Integer getLevelByExperience(Integer experience) {

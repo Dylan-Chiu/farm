@@ -29,8 +29,8 @@ public class RipeState extends PlantState {
     @Override
     public String harvest(Integer farmerId) {
         Map<String, Double> data =  plantService.harvest(super.plant, farmerId);
-        return "成功收获！\n" +
-                "获得金钱：" + data.get("money") + "!\n" +
+        return "成功收获！" +
+                "获得金钱：" + data.get("money") + "!" +
                 "获取经验值：" + data.get("experience") + "!";
     }
 
