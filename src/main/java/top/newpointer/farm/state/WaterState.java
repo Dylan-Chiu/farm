@@ -1,5 +1,7 @@
 package top.newpointer.farm.state;
 
+import top.newpointer.farm.pojo.Farmer;
+
 public class WaterState extends PlantState{
 
     public static final Integer CODE = -2;
@@ -20,7 +22,7 @@ public class WaterState extends PlantState{
     }
 
     @Override
-    public String harvest() {
+    public String harvest(Integer farmerId) {
         return "植物缺水中，无法收获！";
     }
 

@@ -1,6 +1,7 @@
 package top.newpointer.farm.state;
 
 import top.newpointer.farm.Signleton.PlantSet;
+import top.newpointer.farm.pojo.Farmer;
 
 public abstract class PlantState {
     protected Plant plant;
@@ -17,7 +18,7 @@ public abstract class PlantState {
 
     public abstract void grow();
     public abstract String water();
-    public abstract String harvest();
+    public abstract String harvest(Integer farmerId);
     //概率成为缺水状态
     public abstract void beNeedWaterAtProbability(Double p);
     /**

@@ -6,13 +6,16 @@ import org.springframework.stereotype.Service;
 import top.newpointer.farm.Signleton.PlantSet;
 import top.newpointer.farm.mapper.PlantMapper;
 import top.newpointer.farm.mapper.SpeciesMapper;
+import top.newpointer.farm.pojo.Farmer;
 import top.newpointer.farm.pojo.Species;
 import top.newpointer.farm.state.GrowState;
 import top.newpointer.farm.state.Plant;
 import top.newpointer.farm.state.PlantState;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class PlantService {
@@ -22,6 +25,9 @@ public class PlantService {
 
     @Autowired
     private PlantMapper plantMapper;
+
+    @Autowired
+    private FarmerService farmerService;
 
     @Autowired
     private LandService landService;
@@ -51,7 +57,6 @@ public class PlantService {
     }
 
     /**
-     *
      * @param farmerId
      * @param landId
      * @param speciesId
@@ -59,13 +64,13 @@ public class PlantService {
      */
     public Boolean sowSeed(Integer farmerId, Integer landId, Integer speciesId) {
         Integer seedNumber = backpackSeedService.getOneSeedNumber(farmerId, speciesId);
-        if(seedNumber < 1) {
+        if (seedNumber < 1) {
             return false;
         }
         //土地上添加植物
-        addPlant(farmerId,landId,speciesId);
+        addPlant(farmerId, landId, speciesId);
         //背包中种子数减一
-        backpackSeedService.alterSeeds(farmerId,speciesId,-1);
+        backpackSeedService.alterSeeds(farmerId, speciesId, -1);
         return true;
     }
 
@@ -101,5 +106,25 @@ public class PlantService {
 
     public String water(Plant plant) {
         return plant.water();
+    }
+
+    /**
+     * 收获
+     *
+     * @param plant
+     * @return 得到的收益
+     */
+    public Map<String, Double> harvest(Plant plant, Integer farmerId) {
+        //获取农民对象
+        Farmer farmer = farmerService.getFarmerById(farmerId);
+        HashMap<String, Double> data = new HashMap<>();
+        //删除该植物
+        plant.dig();
+        //添加收益
+        Double money = farmer.getMoney();
+        money += speciesService.getSpeciesById(plant.getSpeciesId()).getProfit();
+        farmer.setMoney(money);
+        data.put("money",money);
+        return data;
     }
 }

@@ -1,6 +1,14 @@
 package top.newpointer.farm.state;
 
-public class RipeState extends PlantState{
+import top.newpointer.farm.GetBeanUtil;
+import top.newpointer.farm.pojo.Farmer;
+import top.newpointer.farm.service.PlantService;
+
+import java.util.Map;
+
+public class RipeState extends PlantState {
+
+    private PlantService plantService = GetBeanUtil.getBean(PlantService.class);
 
     public static final Integer CODE = 1;
 
@@ -19,9 +27,9 @@ public class RipeState extends PlantState{
     }
 
     @Override
-    public String harvest() {
-        System.err.println("收获方法还没写！");
-        return "成功收获！";
+    public String harvest(Integer farmerId) {
+        Map<String, Double> data =  plantService.harvest(super.plant, farmerId);
+        return "成功收获！获得金钱：" + data.get("money") + "!";
     }
 
     @Override

@@ -3,6 +3,7 @@ package top.newpointer.farm.state;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import top.newpointer.farm.pojo.Farmer;
 import top.newpointer.farm.pojo.Species;
 
 import java.util.Date;
@@ -46,8 +47,8 @@ public class Plant {
         return this.plantState.water();
     }
 
-    public void harvest() {
-        this.plantState.harvest();
+    public String harvest() {
+        return this.plantState.harvest(farmerId);
     }
 
     public void dig() {

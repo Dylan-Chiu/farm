@@ -1,5 +1,7 @@
 package top.newpointer.farm.state;
 
+import top.newpointer.farm.pojo.Farmer;
+
 public class DeadState extends PlantState{
 
     public static final Integer CODE = -1;
@@ -19,7 +21,7 @@ public class DeadState extends PlantState{
     }
 
     @Override
-    public String harvest() {
+    public String harvest(Integer farmerId) {
         return "植物已经死亡，无法收获了！";
     }
 

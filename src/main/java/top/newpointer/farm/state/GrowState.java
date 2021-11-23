@@ -1,5 +1,6 @@
 package top.newpointer.farm.state;
 
+import top.newpointer.farm.pojo.Farmer;
 import top.newpointer.farm.service.PlantService;
 import top.newpointer.farm.GetBeanUtil;
 
@@ -29,7 +30,7 @@ public class GrowState extends PlantState{
     }
 
     @Override
-    public String harvest() {
+    public String harvest(Integer farmerId) {
         return "植物正在健康生长，还未到收获期！";
     }
 

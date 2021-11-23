@@ -78,4 +78,15 @@ public class PlantController {
         return message.toString();
     }
 
+    @RequestMapping("/harvest")
+    public String harvest(HttpServletRequest request,
+                          @RequestParam("landId") Integer landId) {
+        Message message = new Message();
+        Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        Plant plant = PlantSet.getInstance().getPlantByFarmerIdAndLandId(farmerId,landId);
+        String note = plant.harvest();
+        message.put("note",note);
+        return message.toString();
+    }
+
 }
