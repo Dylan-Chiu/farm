@@ -4,7 +4,7 @@ import top.newpointer.farm.pojo.Farmer;
 
 public class WaterState extends PlantState{
 
-    public static final Integer CODE = -2;
+    public static final Integer CODE = 2;
 
     @Override
     public Integer getCODE() {

@@ -21,6 +21,8 @@ public class FarmerController {
         Message message = new Message();
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
         Farmer farmer = farmerService.getFarmerById(farmerId);
+        //写入等级以及经验框大小
+        farmerService.updateLevelAndExpLen(farmer);
         message.put("farmer",farmer);
         return message.toString();
     }

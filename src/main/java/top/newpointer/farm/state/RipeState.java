@@ -10,7 +10,7 @@ public class RipeState extends PlantState {
 
     private PlantService plantService = GetBeanUtil.getBean(PlantService.class);
 
-    public static final Integer CODE = 1;
+    public static final Integer CODE = 3;
 
     @Override
     public Integer getCODE() {
@@ -29,7 +29,9 @@ public class RipeState extends PlantState {
     @Override
     public String harvest(Integer farmerId) {
         Map<String, Double> data =  plantService.harvest(super.plant, farmerId);
-        return "成功收获！获得金钱：" + data.get("money") + "!";
+        return "成功收获！\n" +
+                "获得金钱：" + data.get("money") + "!\n" +
+                "获取经验值：" + data.get("experience") + "!";
     }
 
     @Override

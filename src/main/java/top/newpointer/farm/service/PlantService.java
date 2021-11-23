@@ -124,7 +124,12 @@ public class PlantService {
         Double money = farmer.getMoney();
         money += speciesService.getSpeciesById(plant.getSpeciesId()).getProfit();
         farmer.setMoney(money);
-        data.put("money",money);
+        data.put("money", money);
+        //添加经验值
+        Integer experience = farmer.getExperience();
+        experience += speciesService.getSpeciesById(plant.getSpeciesId()).getExperience();
+        farmer.setExperience(experience);
+        data.put("experience", 1.0 * experience);
         return data;
     }
 }

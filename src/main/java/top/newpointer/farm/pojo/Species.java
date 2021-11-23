@@ -12,5 +12,6 @@ public class Species {
     private double seedPrice;
     private Integer unlockLevel;
     private double profit;
+    private Integer experience;
     private double growthTime;
 }

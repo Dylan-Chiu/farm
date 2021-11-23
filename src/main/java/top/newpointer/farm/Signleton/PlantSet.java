@@ -39,7 +39,6 @@ public class PlantSet {
                 plant.setPlantState(new RipeState());
             }
         }
-
     }
 
     private List<Plant> plants = null;

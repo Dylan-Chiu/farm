@@ -44,6 +44,7 @@ public class IdentityService {
     public String register(Farmer farmer) {
         farmer.setMoney(2000);
         farmer.setLevel(1);
+        farmer.setExperience(0);
         farmerMapper.insert(farmer);
         landService.initLandsByFarmerId(farmer.getId());
         return new Message().toString();

@@ -1,5 +1,6 @@
 package top.newpointer.farm.pojo;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,5 +14,9 @@ public class Farmer {
     private String password;
     private String Nickname;
     private Integer level;
+    private Integer experience;
     private double money;
+
+    @TableField(exist = false)
+    private Integer currentExpLen;//当前等级的经验框长度
 }

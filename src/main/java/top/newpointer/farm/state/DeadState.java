@@ -4,7 +4,7 @@ import top.newpointer.farm.pojo.Farmer;
 
 public class DeadState extends PlantState{
 
-    public static final Integer CODE = -1;
+    public static final Integer CODE = 1;
 
     @Override
     public Integer getCODE() {
