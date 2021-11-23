@@ -86,6 +86,12 @@ public class PlantSet {
         }
     }
 
+    public void beNeedWaterAtProbability(Double p) {
+        for (Plant plant : plants) {
+            plant.beNeedWaterAtProbability(p);
+        }
+    }
+
 
     /**
      * 同时从PlantSet和数据库中删除植物

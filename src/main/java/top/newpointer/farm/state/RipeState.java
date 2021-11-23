@@ -23,4 +23,9 @@ public class RipeState extends PlantState{
         System.err.println("收获方法还没写！");
         return "成功收获！";
     }
+
+    @Override
+    public void beNeedWaterAtProbability(Double p) {
+
+    }
 }

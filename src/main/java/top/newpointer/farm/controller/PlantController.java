@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import top.newpointer.farm.Signleton.PlantSet;
 import top.newpointer.farm.state.Plant;
 import top.newpointer.farm.pojo.Species;
 import top.newpointer.farm.service.PlantService;
@@ -61,4 +62,20 @@ public class PlantController {
         plantService.removePlantByFarmerIdAndLandId(farmerId, landId);
         return new Message().toString();
     }
+
+    /**
+     * 浇水
+     * @return
+     */
+    @RequestMapping("/water")
+    public String water(HttpServletRequest request,
+                        @RequestParam("landId") Integer landId) {
+        Message message = new Message();
+        Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        Plant plant = PlantSet.getInstance().getPlantByFarmerIdAndLandId(farmerId,landId);
+        String note = plantService.water(plant);
+        message.put("note",note);
+        return message.toString();
+    }
+
 }

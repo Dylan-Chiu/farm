@@ -24,6 +24,7 @@ public class Plant {
 
     @TableField(exist = false)
     private Species species;
+
     /**
      * 设置植物状态，更新两个成员变量（plantState和state）
      *
@@ -41,8 +42,8 @@ public class Plant {
         this.plantState.grow();
     }
 
-    public void water() {
-        this.plantState.water();
+    public String water() {
+        return this.plantState.water();
     }
 
     public void harvest() {
@@ -51,5 +52,14 @@ public class Plant {
 
     public void dig() {
         this.plantState.dig();
+    }
+
+    /**
+     * 每秒以p的概率变为需要浇水状态
+     *
+     * @param p
+     */
+    public void beNeedWaterAtProbability(Double p) {
+        this.plantState.beNeedWaterAtProbability(p);
     }
 }

@@ -32,4 +32,11 @@ public class GrowState extends PlantState{
     public String harvest() {
         return "植物正在健康生长，还未到收获期！";
     }
+
+    @Override
+    public void beNeedWaterAtProbability(Double p) {
+        if(Math.random() < p ) {
+            super.plant.setPlantState(new WaterState());
+        }
+    }
 }

@@ -18,7 +18,8 @@ public abstract class PlantState {
     public abstract void grow();
     public abstract String water();
     public abstract String harvest();
-
+    //概率成为缺水状态
+    public abstract void beNeedWaterAtProbability(Double p);
     /**
      * 所有状态下执行相同操作
      */

@@ -22,4 +22,9 @@ public class DeadState extends PlantState{
     public String harvest() {
         return "植物已经死亡，无法收获了！";
     }
+
+    @Override
+    public void beNeedWaterAtProbability(Double p) {
+
+    }
 }

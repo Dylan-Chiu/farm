@@ -98,4 +98,8 @@ public class PlantService {
         double after = plant.getRestTime() - plant.getGrowthRate();
         plant.setRestTime(after > 0 ? after : 0);
     }
+
+    public String water(Plant plant) {
+        return plant.water();
+    }
 }

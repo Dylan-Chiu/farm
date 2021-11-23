@@ -24,4 +24,9 @@ public class WaterState extends PlantState{
         return "植物缺水中，无法收获！";
     }
 
+    @Override
+    public void beNeedWaterAtProbability(Double p) {
+
+    }
+
 }
