@@ -3,7 +3,7 @@ package top.newpointer.farm.state;
 import top.newpointer.farm.GetBeanUtil;
 import top.newpointer.farm.service.PlantService;
 
-public class WaterState extends PlantState{
+public class DryState extends PlantState{
 
     private PlantService plantService = GetBeanUtil.getBean(PlantService.class);
 

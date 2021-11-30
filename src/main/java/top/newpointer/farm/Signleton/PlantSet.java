@@ -34,8 +34,8 @@ public class PlantSet {
                 plant.setPlantState(new GrowState());
             } else if(plant.getState().equals(DeadState.CODE)) {
                 plant.setPlantState(new DeadState());
-            } else if(plant.getState().equals(WaterState.CODE)) {
-                plant.setPlantState(new WaterState());
+            } else if(plant.getState().equals(DryState.CODE)) {
+                plant.setPlantState(new DryState());
             } else if(plant.getState().equals(RipeState.CODE)) {
                 plant.setPlantState(new RipeState());
             }

@@ -1,8 +1,6 @@
 package top.newpointer.farm.state;
 
 import lombok.SneakyThrows;
-import org.springframework.scheduling.annotation.Async;
-import top.newpointer.farm.pojo.Farmer;
 import top.newpointer.farm.service.PlantService;
 import top.newpointer.farm.GetBeanUtil;
 
@@ -39,7 +37,7 @@ public class GrowState extends PlantState{
     @Override
     public void beNeedWaterAtProbability(Double p) {
         if(Math.random() < p ) {
-            super.plant.setPlantState(new WaterState());
+            super.plant.setPlantState(new DryState());
             plantService.setTimeToDeath(plant);
         }
     }
