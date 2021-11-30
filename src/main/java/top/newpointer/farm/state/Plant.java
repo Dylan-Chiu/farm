@@ -20,6 +20,7 @@ public class Plant {
     private double timeToDeath;
     private Integer state;//数据库字段，保存状态
     private double restTime;
+    //花钱加速的速率 （不包含土地的基础速率）
     private double growthRate;
 
     @TableField(exist = false)

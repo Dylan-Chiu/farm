@@ -8,15 +8,13 @@ import top.newpointer.farm.Signleton.PlantSet;
 import top.newpointer.farm.mapper.PlantMapper;
 import top.newpointer.farm.mapper.SpeciesMapper;
 import top.newpointer.farm.pojo.Farmer;
+import top.newpointer.farm.pojo.Land;
 import top.newpointer.farm.pojo.Species;
 import top.newpointer.farm.state.GrowState;
 import top.newpointer.farm.state.Plant;
 import top.newpointer.farm.state.PlantState;
 
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class PlantService {
@@ -41,6 +39,13 @@ public class PlantService {
 
     @Value("${maxLandNumber}")
     private Integer maxLandNumber;
+
+    @Value("${yellowLandRate}")
+    private Integer yellowLandRate;
+    @Value("${redLandRate}")
+    private Integer redLandRate;
+    @Value("${blackLandRate}")
+    private Integer blackLandRate;
 
     public void addPlant(Integer farmerId, Integer landId, Integer speciesId) {
         double restTime = speciesMapper.selectById(speciesId).getGrowthTime();
@@ -101,7 +106,22 @@ public class PlantService {
     }
 
     public void grow(Plant plant) {
-        double after = plant.getRestTime() - plant.getGrowthRate();
+        double landRate;
+        Integer landId = plant.getLandId();
+        Integer farmerId = plant.getFarmerId();
+        Land land = landService.getLandByFarmerIdAndLandId(farmerId, landId);
+        Integer landType = land.getType();
+        if (Objects.equals(landType, Land.TYPE_YELLOW)) {
+            landRate = yellowLandRate;
+        } else if(Objects.equals(landType, Land.TYPE_RED)) {
+            landRate = redLandRate;
+        } else if (Objects.equals(landType, Land.TYPE_BLACK)) {
+            landRate = blackLandRate;
+        } else {
+            System.err.println("土地出现类型错误！");
+            landRate = 0;
+        }
+        double after = plant.getRestTime() - plant.getGrowthRate() - landRate;
         plant.setRestTime(after > 0 ? after : 0);
     }
 

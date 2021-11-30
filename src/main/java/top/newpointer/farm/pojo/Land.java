@@ -15,4 +15,6 @@ public class Land {
     public static final Integer TYPE_RED = 2;
     public static final Integer TYPE_BLACK = 3;
     public static final Integer TYPE_DRY = -1;
+
+
 }

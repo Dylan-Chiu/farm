@@ -23,7 +23,7 @@ public class LandService {
 
     public List<Land> getLandListByFarmerId(Integer farmerId) {
         QueryWrapper<Land> wrapper = new QueryWrapper<>();
-        wrapper.eq("farmer_id",farmerId)
+        wrapper.eq("farmer_id", farmerId)
                 .orderByAsc("land_id");
         List<Land> landList = landMapper.selectList(wrapper);
         return landList;
@@ -31,15 +31,24 @@ public class LandService {
 
     /**
      * 给新注册的农民分配初始土地，前unlockedLandNumber块土地解锁
+     *
      * @param farmerId 农民Id
      */
     public void initLandsByFarmerId(Integer farmerId) {
         for (Integer i = 0; i < maxLandNumber; i++) {
-            Land land = new Land(farmerId,i,Land.TYPE_LOCKED);
-            if(i < unlockedLandNumber) {
+            Land land = new Land(farmerId, i, Land.TYPE_LOCKED);
+            if (i < unlockedLandNumber) {
                 land.setType(Land.TYPE_YELLOW);
             }
             landMapper.insert(land);
         }
+    }
+
+    public Land getLandByFarmerIdAndLandId(Integer farmerId, Integer landId) {
+        QueryWrapper<Land> wrapper = new QueryWrapper<>();
+        wrapper.eq("farmer_id",farmerId)
+                .eq("land_id",landId);
+        Land land = landMapper.selectOne(wrapper);
+        return land;
     }
 }
