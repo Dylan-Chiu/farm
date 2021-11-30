@@ -11,7 +11,7 @@ import java.util.Date;
 @Component
 public class RefreshTask {
 
-    @Value("${waterProbability}")
+    @Value("${dryProbability}")
     private Double waterProbability;
 
     @Scheduled(cron = "* * * * * *")//每秒执行一次
