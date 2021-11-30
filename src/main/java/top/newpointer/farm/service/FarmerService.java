@@ -77,20 +77,4 @@ public class FarmerService {
         farmer.setLevel(level);
         farmer.setCurrentExpLen(expLen);
     }
-
-    @Test
-    public void test() {
-        for (int i = 0; i < 10; i++) {
-            int x = getCurrentExpLenByLevel(i);
-            System.out.println(x);
-        }
-    }
-
-    @Test
-    public void test1() {
-        for (int i = 0; i < 600; i++) {
-            int x = getLevelByExperience(i);
-            System.out.println(i + "  " + x);
-        }
-    }
 }

@@ -43,4 +43,16 @@ public class RipeState extends PlantState {
     public void dying() {
 
     }
+
+    @Override
+    public void startAccelerate(Plant plant, Double delta) {
+
+    }
+
+    @Override
+    public void endAccelerate(Plant plant, Double delta, Integer time) {
+
+    }
+
+
 }

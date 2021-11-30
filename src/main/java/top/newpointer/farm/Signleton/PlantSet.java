@@ -10,6 +10,7 @@ import top.newpointer.farm.state.*;
 import javax.annotation.PostConstruct;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 @Component
 public class PlantSet {
@@ -91,6 +92,14 @@ public class PlantSet {
         }
     }
 
+    public Plant getPlantById(Integer plantId) {
+        for (Plant plant : plants) {
+            if (Objects.equals(plant.getId(), plantId)) {
+                return plant;
+            }
+        }
+        return null;
+    }
 
     /**
      * 同时从PlantSet和数据库中删除植物

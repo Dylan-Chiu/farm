@@ -1,5 +1,7 @@
 package top.newpointer.farm.state;
 
+import lombok.SneakyThrows;
+import org.springframework.scheduling.annotation.Async;
 import top.newpointer.farm.pojo.Farmer;
 import top.newpointer.farm.service.PlantService;
 import top.newpointer.farm.GetBeanUtil;
@@ -45,5 +47,17 @@ public class GrowState extends PlantState{
     @Override
     public void dying() {
 
+    }
+
+    @Override
+    public void startAccelerate(Plant plant, Double delta) {
+        plant.setGrowthRate(plant.getGrowthRate() + delta);
+    }
+
+    @SneakyThrows
+    @Override
+    public void endAccelerate(Plant plant, Double delta,Integer time) {
+        Thread.sleep(time * 1000);
+        plant.setGrowthRate(plant.getGrowthRate() - delta);
     }
 }

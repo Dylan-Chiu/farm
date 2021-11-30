@@ -32,4 +32,7 @@ public abstract class PlantState {
     public void dig() {
         PlantSet.getInstance().removePlant(plant);
     }
+
+    public abstract void startAccelerate(Plant plant, Double delta);
+    public abstract void endAccelerate(Plant plant, Double delta,Integer time);
 }

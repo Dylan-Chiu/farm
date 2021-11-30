@@ -3,6 +3,7 @@ package top.newpointer.farm.state;
 import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import lombok.NoArgsConstructor;
+import org.springframework.scheduling.annotation.Async;
 import top.newpointer.farm.pojo.Farmer;
 import top.newpointer.farm.pojo.Species;
 
@@ -58,6 +59,14 @@ public class Plant {
 
     public void dying() {
         this.plantState.dying();
+    }
+
+    public void startAccelerate(Plant plant, Double delta) {
+        this.plantState.startAccelerate(plant, delta);
+    }
+
+    public void endAccelerate(Plant plant, Double delta, Integer time) {
+        this.plantState.endAccelerate(plant,delta,time);
     }
 
     /**

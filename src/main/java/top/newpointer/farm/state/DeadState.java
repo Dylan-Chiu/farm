@@ -35,5 +35,15 @@ public class DeadState extends PlantState{
 
     }
 
+    @Override
+    public void startAccelerate(Plant plant, Double delta) {
+
+    }
+
+    @Override
+    public void endAccelerate(Plant plant, Double delta, Integer time) {
+
+    }
+
 
 }

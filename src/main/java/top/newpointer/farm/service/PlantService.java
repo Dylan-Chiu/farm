@@ -2,6 +2,7 @@ package top.newpointer.farm.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import top.newpointer.farm.Signleton.PlantSet;
 import top.newpointer.farm.mapper.PlantMapper;
@@ -137,6 +138,18 @@ public class PlantService {
         Species species = speciesService.getSpeciesById(plant.getSpeciesId());
         double deadTime = species.getDeadTime();
         plant.setTimeToDeath(deadTime);
+    }
+
+    /**
+     * 包括加速和一定时间后恢复速度两个步骤
+     * @param plantId
+     * @param delta 添加的速度大小
+     */
+    @Async//异步执行，endAccelerate在sleep的时候，上层控制器可以不用等待
+    public void accelerate(Integer plantId, Double delta, Integer time) {
+        Plant plant = PlantSet.getInstance().getPlantById(plantId);
+        plant.startAccelerate(plant,delta);
+        plant.endAccelerate(plant,delta,time);
     }
 
     public void dying(Plant plant) {
