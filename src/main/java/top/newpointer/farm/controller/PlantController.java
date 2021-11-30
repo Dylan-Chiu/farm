@@ -10,6 +10,7 @@ import top.newpointer.farm.pojo.Species;
 import top.newpointer.farm.service.PlantService;
 import top.newpointer.farm.service.SpeciesService;
 import top.newpointer.farm.utils.Message;
+import top.newpointer.farm.utils.StatusCode;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -40,7 +41,7 @@ public class PlantController {
         Message message = new Message();
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
         Boolean isSucceed = plantService.sowSeed(farmerId, landId, speciesId);
-        message.put("isSucceed",isSucceed);
+        message.put("isSucceed", isSucceed);
         return message.toString();
     }
 
@@ -65,6 +66,7 @@ public class PlantController {
 
     /**
      * 浇水
+     *
      * @return
      */
     @RequestMapping("/water")
@@ -72,9 +74,9 @@ public class PlantController {
                         @RequestParam("landId") Integer landId) {
         Message message = new Message();
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
-        Plant plant = PlantSet.getInstance().getPlantByFarmerIdAndLandId(farmerId,landId);
+        Plant plant = PlantSet.getInstance().getPlantByFarmerIdAndLandId(farmerId, landId);
         String note = plantService.water(plant);
-        message.put("note",note);
+        message.put("note", note);
         return message.toString();
     }
 
@@ -83,10 +85,24 @@ public class PlantController {
                           @RequestParam("landId") Integer landId) {
         Message message = new Message();
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
-        Plant plant = PlantSet.getInstance().getPlantByFarmerIdAndLandId(farmerId,landId);
+        Plant plant = PlantSet.getInstance().getPlantByFarmerIdAndLandId(farmerId, landId);
         String note = plant.harvest();
-        message.put("note",note);
+        message.put("note", note);
         return message.toString();
     }
 
+    @RequestMapping("/buyAcceleration")
+    public String buyAcceleration(HttpServletRequest request,
+                                  @RequestParam("landId") Integer landId) {
+        Message message = new Message();
+        Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        Plant plant = PlantSet.getInstance().getPlantByFarmerIdAndLandId(farmerId, landId);
+        Boolean isSucceed = plantService.buyAcceleration(farmerId, plant);
+        if(isSucceed == false) {
+            message.setState(StatusCode.MONEY_NOT_ENOUGH);
+        } else {
+            plantService.accelerate(plant);
+        }
+        return message.toString();
+    }
 }

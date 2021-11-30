@@ -7,7 +7,7 @@ import org.springframework.web.servlet.HandlerInterceptor;
 import org.springframework.web.servlet.ModelAndView;
 import top.newpointer.farm.service.RedisService;
 import top.newpointer.farm.utils.Message;
-import top.newpointer.farm.utils.IdentityStatus;
+import top.newpointer.farm.utils.StatusCode;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -38,7 +38,7 @@ public class TokenInterceptor implements HandlerInterceptor {
             return true;
         } else {
             Message message = new Message();
-            message.setState(IdentityStatus.NO_LOGIN);
+            message.setState(StatusCode.NO_LOGIN);
             response.getWriter().write(message.toString());
             return false;
         }

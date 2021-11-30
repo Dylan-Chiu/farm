@@ -33,7 +33,6 @@ public class TestController {
 
     @RequestMapping("/t3")
     public String test3() {
-        plantService.accelerate(-1627357182,10.0,20);
         return null;
     }
 }

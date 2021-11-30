@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 import top.newpointer.farm.Signleton.PlantSet;
 import top.newpointer.farm.mapper.PlantMapper;
 import top.newpointer.farm.mapper.SpeciesMapper;
@@ -46,6 +47,14 @@ public class PlantService {
     private Integer redLandRate;
     @Value("${blackLandRate}")
     private Integer blackLandRate;
+
+    @Value("${accMoney}")
+    private Integer accMoney;
+    @Value("${accRate}")
+    private Double accRate;
+    @Value("${accTime}")
+    private Integer accTime;
+
 
     public void addPlant(Integer farmerId, Integer landId, Integer speciesId) {
         double restTime = speciesMapper.selectById(speciesId).getGrowthTime();
@@ -113,7 +122,7 @@ public class PlantService {
         Integer landType = land.getType();
         if (Objects.equals(landType, Land.TYPE_YELLOW)) {
             landRate = yellowLandRate;
-        } else if(Objects.equals(landType, Land.TYPE_RED)) {
+        } else if (Objects.equals(landType, Land.TYPE_RED)) {
             landRate = redLandRate;
         } else if (Objects.equals(landType, Land.TYPE_BLACK)) {
             landRate = blackLandRate;
@@ -160,16 +169,24 @@ public class PlantService {
         plant.setTimeToDeath(deadTime);
     }
 
+    public Boolean buyAcceleration(Integer farmerId, Plant plant) {
+        Double money = farmerService.getMoney(farmerId);
+        if (money < accMoney) {//金钱不足
+            return false;
+        }
+        //扣钱
+        farmerService.setMoney(farmerId, money - accMoney);
+        return true;
+    }
+
     /**
      * 包括加速和一定时间后恢复速度两个步骤
-     * @param plantId
-     * @param delta 添加的速度大小
+     *
      */
     @Async//异步执行，endAccelerate在sleep的时候，上层控制器可以不用等待
-    public void accelerate(Integer plantId, Double delta, Integer time) {
-        Plant plant = PlantSet.getInstance().getPlantById(plantId);
-        plant.startAccelerate(plant,delta);
-        plant.endAccelerate(plant,delta,time);
+    public void accelerate(Plant plant) {
+        plant.startAccelerate(plant, accRate);
+        plant.endAccelerate(plant, accRate, accTime);
     }
 
     public void dying(Plant plant) {
