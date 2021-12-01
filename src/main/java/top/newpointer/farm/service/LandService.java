@@ -46,7 +46,7 @@ public class LandService {
      */
     public void initLandsByFarmerId(Integer farmerId) {
         for (Integer i = 0; i < maxLandNumber; i++) {
-            Land land = new Land(farmerId, i, Land.TYPE_LOCKED);
+            Land land = null;
             if (i < unlockedLandNumber) {
                 land.setType(Land.TYPE_YELLOW);
             }
