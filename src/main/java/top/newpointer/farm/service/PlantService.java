@@ -70,7 +70,7 @@ public class PlantService {
         plant.setSpeciesId(speciesId);
         plant.setSowingTime(new Date());
         plant.setRestTime(restTime);
-        plant.setGrowthRate(1);
+        plant.setGrowthRate(0);
         plant.setPlantState(new GrowState());
         PlantSet.getInstance().addPlant(plant);
         plantMapper.insert(plant);
