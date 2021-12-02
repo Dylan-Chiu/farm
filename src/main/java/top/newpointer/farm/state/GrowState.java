@@ -1,8 +1,6 @@
 package top.newpointer.farm.state;
 
 import lombok.SneakyThrows;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import top.newpointer.farm.service.PlantService;
 import top.newpointer.farm.GetBeanUtil;
 import top.newpointer.farm.service.SpeciesService;
@@ -11,11 +9,9 @@ public class GrowState extends PlantState{
 
     public static final Integer CODE = 0;
 
-    @Autowired
     private SpeciesService speciesService = GetBeanUtil.getBean(SpeciesService.class);;
 
-    @Value("${dryProbability}")
-    private double dryProbability;
+    private Double dryProbability = Double.valueOf(GetBeanUtil.getPropertiesValue("dryProbability"));
 
 //  此类未注入Spring容器，则也不能使用 @Autowired获取容器中内容
     private PlantService plantService = GetBeanUtil.getBean(PlantService.class);

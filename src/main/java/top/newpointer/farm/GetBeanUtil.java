@@ -1,10 +1,14 @@
 package top.newpointer.farm;
 
+import lombok.SneakyThrows;
 import org.springframework.beans.BeansException;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.ApplicationContextAware;
 import org.springframework.context.annotation.Lazy;
+import org.springframework.core.io.Resource;
 import org.springframework.stereotype.Component;
+
+import java.util.Properties;
 
 @Component
 public class GetBeanUtil implements ApplicationContextAware  {
@@ -26,5 +30,14 @@ public class GetBeanUtil implements ApplicationContextAware  {
      */
     public static <T> T getBean(Class<T> clazz) {
         return applicationContext.getBean(clazz);
+    }
+
+    @SneakyThrows
+    public static String getPropertiesValue(String key) {
+        Resource resource = applicationContext.getResource("classpath:application.properties");
+        Properties properties = new Properties();
+        properties.load(resource.getInputStream());
+        Object obj = properties.get(key);
+        return obj.toString();
     }
 }
