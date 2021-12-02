@@ -5,14 +5,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.newpointer.farm.pojo.BackpackFruit;
-import top.newpointer.farm.proxy_factory.Buyer;
-import top.newpointer.farm.proxy_factory.Jack;
-import top.newpointer.farm.proxy_factory.SystemBuyer;
-import top.newpointer.farm.proxy_factory.Tom;
+import top.newpointer.farm.proxy.Jack;
+import top.newpointer.farm.proxy.SystemBuyer;
+import top.newpointer.farm.proxy.Tom;
 import top.newpointer.farm.service.BackpackFruitService;
 import top.newpointer.farm.service.FarmerService;
 import top.newpointer.farm.utils.Message;
-import top.newpointer.farm.utils.StatusCode;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;

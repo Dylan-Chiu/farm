@@ -6,9 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.newpointer.farm.mapper.BackpackFruitMapper;
 import top.newpointer.farm.pojo.BackpackFruit;
-import top.newpointer.farm.proxy_factory.Jack;
-import top.newpointer.farm.proxy_factory.SystemBuyer;
-import top.newpointer.farm.proxy_factory.Tom;
+import top.newpointer.farm.proxy.Jack;
+import top.newpointer.farm.proxy.SystemBuyer;
+import top.newpointer.farm.proxy.Tom;
 import top.newpointer.farm.utils.Message;
 import top.newpointer.farm.utils.StatusCode;
 

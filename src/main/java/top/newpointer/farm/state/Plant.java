@@ -43,8 +43,8 @@ public class Plant {
         this.setState(plantState.getCODE());
     }
 
-    public void grow() {
-        this.plantState.grow();
+    public void updateTime() {
+        this.plantState.updateTime();
     }
 
     public String water() {
@@ -59,24 +59,11 @@ public class Plant {
         this.plantState.dig();
     }
 
-    public void dying() {
-        this.plantState.dying();
-    }
-
     public void startAccelerate(Plant plant, Double delta) {
         this.plantState.startAccelerate(plant, delta);
     }
 
     public void endAccelerate(Plant plant, Double delta, Integer time) {
         this.plantState.endAccelerate(plant,delta,time);
-    }
-
-    /**
-     * 每秒以p的概率变为需要浇水状态
-     *
-     * @param p
-     */
-    public void beNeedWaterAtProbability(Double p) {
-        this.plantState.beNeedWaterAtProbability(p);
     }
 }

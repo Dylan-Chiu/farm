@@ -1,11 +1,7 @@
-package top.newpointer.farm.proxy_factory;
+package top.newpointer.farm.proxy;
 
-import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import top.newpointer.farm.mapper.BackpackFruitMapper;
-import top.newpointer.farm.mapper.FarmerMapper;
-import top.newpointer.farm.pojo.BackpackFruit;
 import top.newpointer.farm.service.BackpackFruitService;
 import top.newpointer.farm.service.FarmerService;
 import top.newpointer.farm.service.SpeciesService;

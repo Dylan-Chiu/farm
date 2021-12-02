@@ -17,12 +17,8 @@ public class RefreshTask {
     @Scheduled(cron = "* * * * * *")//每秒执行一次
     public void refresh() {
         System.out.println(new Date());
-        //更新rest_time
-        PlantSet.getInstance().updateRestTime();
-        //随机缺水状态
-        PlantSet.getInstance().beNeedWaterAtProbability(waterProbability);
-        //更新濒死状态
-        PlantSet.getInstance().updateDying();
+        //更新时间
+        PlantSet.getInstance().updateTime();
         //更新数据库
         PlantSet.getInstance().updatePlantsIntoDatabase();
     }

@@ -1,4 +1,4 @@
-package top.newpointer.farm.proxy_factory;
+package top.newpointer.farm.proxy;
 
 public abstract class Businessman implements Buyer{
     protected abstract Double preSell(Integer farmerId, Integer speciesId, Integer number);

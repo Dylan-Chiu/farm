@@ -15,7 +15,11 @@ public class DryState extends PlantState{
     }
 
     @Override
-    public void grow() {
+    public void updateTime() {
+        plantService.dying(plant);
+        if(plant.getTimeToDeath() == 0) {
+            super.plant.setPlantState(new DeadState());
+        }
     }
 
     @Override
@@ -27,19 +31,6 @@ public class DryState extends PlantState{
     @Override
     public String harvest(Integer farmerId) {
         return "植物缺水中，无法收获！";
-    }
-
-    @Override
-    public void beNeedWaterAtProbability(Double p) {
-
-    }
-
-    @Override
-    public void dying() {
-        plantService.dying(plant);
-        if(plant.getTimeToDeath() == 0) {
-            super.plant.setPlantState(new DeadState());
-        }
     }
 
     @Override

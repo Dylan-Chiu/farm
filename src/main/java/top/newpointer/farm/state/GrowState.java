@@ -2,6 +2,7 @@ package top.newpointer.farm.state;
 
 import lombok.SneakyThrows;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import top.newpointer.farm.service.PlantService;
 import top.newpointer.farm.GetBeanUtil;
 import top.newpointer.farm.service.SpeciesService;
@@ -13,6 +14,9 @@ public class GrowState extends PlantState{
     @Autowired
     private SpeciesService speciesService = GetBeanUtil.getBean(SpeciesService.class);;
 
+    @Value("${dryProbability}")
+    private double dryProbability;
+
 //  此类未注入Spring容器，则也不能使用 @Autowired获取容器中内容
     private PlantService plantService = GetBeanUtil.getBean(PlantService.class);
 
@@ -22,7 +26,8 @@ public class GrowState extends PlantState{
     }
 
     @Override
-    public void grow() {
+    public void updateTime() {
+        //生长
         plantService.grow(super.plant);
         if(super.plant.getRestTime() == 0) {//剩余成熟时间为 0
             //更新状态
@@ -31,6 +36,11 @@ public class GrowState extends PlantState{
             Integer speciesId = plant.getSpeciesId();
             Integer fruitNumber = speciesService.getSpeciesById(speciesId).getFruitNumber();
             super.plant.setFruitNumber(fruitNumber);
+        }
+        //随机缺水
+        if(Math.random() < dryProbability ) {
+            super.plant.setPlantState(new DryState());
+            plantService.setTimeToDeath(plant);
         }
     }
 
@@ -44,18 +54,6 @@ public class GrowState extends PlantState{
         return "植物正在健康生长，还未到收获期！";
     }
 
-    @Override
-    public void beNeedWaterAtProbability(Double p) {
-        if(Math.random() < p ) {
-            super.plant.setPlantState(new DryState());
-            plantService.setTimeToDeath(plant);
-        }
-    }
-
-    @Override
-    public void dying() {
-
-    }
 
     @Override
     public void startAccelerate(Plant plant, Double delta) {

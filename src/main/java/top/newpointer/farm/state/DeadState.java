@@ -13,7 +13,8 @@ public class DeadState extends PlantState{
     }
 
     @Override
-    public void grow() {
+    public void updateTime() {
+
     }
 
     @Override
@@ -24,16 +25,6 @@ public class DeadState extends PlantState{
     @Override
     public String harvest(Integer farmerId) {
         return "植物已经死亡，无法收获了！";
-    }
-
-    @Override
-    public void beNeedWaterAtProbability(Double p) {
-
-    }
-
-    @Override
-    public void dying() {
-
     }
 
     @Override

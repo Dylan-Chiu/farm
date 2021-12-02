@@ -1,4 +1,4 @@
-package top.newpointer.farm.proxy_factory;
+package top.newpointer.farm.proxy;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

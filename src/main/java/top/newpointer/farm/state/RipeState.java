@@ -16,7 +16,8 @@ public class RipeState extends PlantState {
     }
 
     @Override
-    public void grow() {
+    public void updateTime() {
+
     }
 
     @Override
@@ -28,16 +29,6 @@ public class RipeState extends PlantState {
     public String harvest(Integer farmerId) {
         plantService.harvest(super.plant, farmerId);
         return "成功收获！";
-    }
-
-    @Override
-    public void beNeedWaterAtProbability(Double p) {
-
-    }
-
-    @Override
-    public void dying() {
-
     }
 
     @Override

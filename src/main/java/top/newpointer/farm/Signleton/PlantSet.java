@@ -80,15 +80,9 @@ public class PlantSet {
         }
     }
 
-    public void updateRestTime() {
+    public void updateTime() {
         for (Plant plant : plants) {
-            plant.grow();
-        }
-    }
-
-    public void beNeedWaterAtProbability(Double p) {
-        for (Plant plant : plants) {
-            plant.beNeedWaterAtProbability(p);
+            plant.updateTime();
         }
     }
 
@@ -122,11 +116,5 @@ public class PlantSet {
             }
         }
         return selected;
-    }
-
-    public void updateDying() {
-        for (Plant plant : plants) {
-            plant.dying();
-        }
     }
 }
