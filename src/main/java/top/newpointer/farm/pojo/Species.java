@@ -17,4 +17,5 @@ public class Species {
     //缺水后死亡倒计时时间
     private double deadTime;
     private Integer fruitNumber;
+    private String imageFilename;
 }
