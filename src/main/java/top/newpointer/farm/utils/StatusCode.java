@@ -8,4 +8,5 @@ public class StatusCode {
     public static final int MONEY_NOT_ENOUGH = -4;
     public static final int NUMBER_NOT_ENOUGH = -5;
     public static final int BUYER_ERROR = -6;
+    public static final int LAND_OCCUPIED = -7;
 }

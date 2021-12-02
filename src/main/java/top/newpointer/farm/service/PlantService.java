@@ -1,5 +1,6 @@
 package top.newpointer.farm.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.scheduling.annotation.Async;
@@ -14,6 +15,7 @@ import top.newpointer.farm.pojo.Species;
 import top.newpointer.farm.state.GrowState;
 import top.newpointer.farm.state.Plant;
 import top.newpointer.farm.state.PlantState;
+import top.newpointer.farm.utils.StatusCode;
 
 import java.util.*;
 
@@ -80,16 +82,22 @@ public class PlantService {
      * @param speciesId
      * @return 播种是否成功
      */
-    public Boolean sowSeed(Integer farmerId, Integer landId, Integer speciesId) {
+    public Integer sowSeed(Integer farmerId, Integer landId, Integer speciesId) {
         Integer seedNumber = backpackSeedService.getOneSeedNumber(farmerId, speciesId);
+        //判断种子是否足够
         if (seedNumber < 1) {
-            return false;
+            return StatusCode.NUMBER_NOT_ENOUGH;
+        }
+        //判断土地是否占用
+        Plant plant = getPlantByFarmerIdAndLandId(farmerId, landId);
+        if (plant != null) {
+            return StatusCode.LAND_OCCUPIED;
         }
         //土地上添加植物
         addPlant(farmerId, landId, speciesId);
         //背包中种子数减一
         backpackSeedService.alterSeeds(farmerId, speciesId, -1);
-        return true;
+        return StatusCode.SUCCEED;
     }
 
     public Plant[] getPlantsByFarmerId(int farmerId) {
@@ -115,6 +123,14 @@ public class PlantService {
     public void removePlantByFarmerIdAndLandId(int farmerId, int landId) {
         Plant selected = PlantSet.getInstance().getPlantByFarmerIdAndLandId(farmerId, landId);
         selected.dig();
+    }
+
+    public Plant getPlantByFarmerIdAndLandId(Integer farmerId, Integer landId) {
+        QueryWrapper<Plant> wrapper = new QueryWrapper<>();
+        wrapper.eq("farmer_id",farmerId)
+                .eq("land_id",landId);
+        Plant plant = plantMapper.selectOne(wrapper);
+        return plant;
     }
 
     public void grow(Plant plant) {
