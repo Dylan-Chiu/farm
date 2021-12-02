@@ -1,5 +1,6 @@
 package top.newpointer.farm.state;
 
+import org.springframework.stereotype.Service;
 import top.newpointer.farm.pojo.Farmer;
 
 public class DeadState extends PlantState{

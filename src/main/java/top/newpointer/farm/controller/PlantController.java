@@ -86,8 +86,14 @@ public class PlantController {
         Message message = new Message();
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
         Plant plant = PlantSet.getInstance().getPlantByFarmerIdAndLandId(farmerId, landId);
-        String note = plant.harvest();
-        message.put("note", note);
+        plant.harvest();
+        //写入经验值和果实数
+        Integer fruitNumber = plant.getFruitNumber();
+        Integer speciesId = plant.getSpeciesId();
+        Species species = speciesService.getSpeciesById(speciesId);
+        Integer experience = species.getExperience();
+        message.put("fruitNumber",fruitNumber);
+        message.put("species",species);
         return message.toString();
     }
 

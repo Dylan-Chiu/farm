@@ -22,6 +22,7 @@ public class Plant {
     private double restTime;
     //花钱加速的速率 （不包含土地的基础速率）
     private double growthRate;
+    private Integer fruitNumber;
 
     @TableField(exist = false)
     private PlantState plantState;//状态模式字段，不存入数据库，要确保和state同步

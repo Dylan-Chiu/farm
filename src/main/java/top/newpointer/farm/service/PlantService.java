@@ -38,6 +38,9 @@ public class PlantService {
     @Autowired
     private SpeciesService speciesService;
 
+    @Autowired
+    private BackpackFruitService backpackFruitService;
+
     @Value("${maxLandNumber}")
     private Integer maxLandNumber;
 
@@ -144,23 +147,18 @@ public class PlantService {
      * @param plant
      * @return 得到的收益
      */
-    public Map<String, Double> harvest(Plant plant, Integer farmerId) {
+    public void harvest(Plant plant, Integer farmerId) {
         //获取农民对象
         Farmer farmer = farmerService.getFarmerById(farmerId);
-        HashMap<String, Double> data = new HashMap<>();
+        //添加果实到背包
+        Integer fruitNumber = plant.getFruitNumber();
+        backpackFruitService.alterFruit(farmerId,plant.getSpeciesId(),plant.getFruitNumber());
         //删除该植物
         plant.dig();
-        //添加收益
-        Double money = farmer.getMoney();
-        Double getMoney = speciesService.getSpeciesById(plant.getSpeciesId()).getProfit();
-        data.put("money", getMoney);
-        farmerService.setMoney(farmerId, money + getMoney);
         //添加经验值
         Integer experience = farmer.getExperience();
         Integer getExperience = speciesService.getSpeciesById(plant.getSpeciesId()).getExperience();
-        data.put("experience", 1.0 * getExperience);
         farmerService.setExperience(farmerId, experience + getExperience);
-        return data;
     }
 
     public void setTimeToDeath(Plant plant) {
