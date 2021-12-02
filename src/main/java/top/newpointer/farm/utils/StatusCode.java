@@ -7,4 +7,5 @@ public class StatusCode {
     public static final int NO_LOGIN = -3;
     public static final int MONEY_NOT_ENOUGH = -4;
     public static final int NUMBER_NOT_ENOUGH = -5;
+    public static final int BUYER_ERROR = -6;
 }

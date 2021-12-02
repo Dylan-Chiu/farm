@@ -6,8 +6,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.newpointer.farm.pojo.BackpackFruit;
 import top.newpointer.farm.proxy_factory.Buyer;
+import top.newpointer.farm.proxy_factory.Jack;
 import top.newpointer.farm.proxy_factory.SystemBuyer;
+import top.newpointer.farm.proxy_factory.Tom;
 import top.newpointer.farm.service.BackpackFruitService;
+import top.newpointer.farm.service.FarmerService;
 import top.newpointer.farm.utils.Message;
 import top.newpointer.farm.utils.StatusCode;
 
@@ -19,10 +22,19 @@ import java.util.List;
 public class BackpackFruitController {
 
     @Autowired
+    private FarmerService farmerService;
+
+    @Autowired
     private BackpackFruitService backpackFruitService;
 
     @Autowired
     private SystemBuyer systemBuyer;
+
+    @Autowired
+    private Jack jack;
+
+    @Autowired
+    private Tom tom;
 
     @RequestMapping("/getFruits")
     public String getFruits(HttpServletRequest request) {
@@ -36,18 +48,10 @@ public class BackpackFruitController {
     @RequestMapping("/sellFruit")
     public String sellFruit(HttpServletRequest request,
                             @RequestParam("speciesId") Integer speciesId,
-                            @RequestParam("number") Integer number) {
-        Message message = new Message();
+                            @RequestParam("number") Integer number,
+                            @RequestParam("identityCode") int code) {
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
-        //判断背包数量是否足够
-        Integer beforeFruitNumber = backpackFruitService.getOneFruitNumber(farmerId, speciesId);
-        if (beforeFruitNumber < number) {
-            message.setState(StatusCode.NUMBER_NOT_ENOUGH);
-            return message.toString();
-        }
-        //售卖
-        Double money = systemBuyer.sell(farmerId, speciesId, number);
-        message.put("money",money);
+        Message message = backpackFruitService.sellFruit(farmerId, speciesId, number, code);
         return message.toString();
     }
 }

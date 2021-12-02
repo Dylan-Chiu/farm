@@ -13,8 +13,7 @@ import top.newpointer.farm.service.SpeciesService;
 @Service
 public class SystemBuyer implements Buyer {
 
-    @Autowired
-    private BackpackFruitMapper backpackFruitMapper;
+    public final static Integer CODE = 0;
 
     @Autowired
     private BackpackFruitService backpackFruitService;

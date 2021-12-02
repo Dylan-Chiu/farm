@@ -6,6 +6,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.newpointer.farm.mapper.BackpackFruitMapper;
 import top.newpointer.farm.pojo.BackpackFruit;
+import top.newpointer.farm.proxy_factory.Jack;
+import top.newpointer.farm.proxy_factory.SystemBuyer;
+import top.newpointer.farm.proxy_factory.Tom;
+import top.newpointer.farm.utils.Message;
+import top.newpointer.farm.utils.StatusCode;
 
 import java.util.List;
 
@@ -14,6 +19,21 @@ public class BackpackFruitService {
 
     @Autowired
     private BackpackFruitMapper backpackFruitMapper;
+
+    @Autowired
+    private BackpackFruitService backpackFruitService;
+
+    @Autowired
+    private FarmerService farmerService;
+
+    @Autowired
+    private SystemBuyer systemBuyer;
+
+    @Autowired
+    private Jack jack;
+
+    @Autowired
+    private Tom tom;
 
     public List<BackpackFruit> getFruitsByFarmerId(Integer farmerId) {
         QueryWrapper<BackpackFruit> wrapper = new QueryWrapper<>();
@@ -54,4 +74,37 @@ public class BackpackFruitService {
         }
     }
 
+    public Message sellFruit(Integer farmerId,Integer speciesId,Integer number, int code) {
+        Message message = new Message();
+        //判断背包数量是否足够
+        Integer beforeFruitNumber = backpackFruitService.getOneFruitNumber(farmerId, speciesId);
+        if (beforeFruitNumber < number) {
+            message.setState(StatusCode.NUMBER_NOT_ENOUGH);
+            return message;
+        }
+        //售卖
+        Double beforeMoney = farmerService.getMoney(farmerId);
+        Double money;
+        if (code == SystemBuyer.CODE) {
+            money = systemBuyer.sell(farmerId, speciesId, number);
+            message.put("money",money);
+        } else if(code == Jack.CODE) {
+            if(beforeMoney < Jack.PROXY_MONEY) {//判断是否够代理费
+                message.setState(StatusCode.MONEY_NOT_ENOUGH);
+                return message;
+            }
+            money = jack.sell(farmerId, speciesId, number);
+            message.put("money",money);
+        } else if( code == Tom.CODE) {
+            if(beforeMoney < Tom.PROXY_MONEY) {
+                message.setState(StatusCode.MONEY_NOT_ENOUGH);
+                return message;
+            }
+            money = tom.sell(farmerId, speciesId, number);
+            message.put("money",money);
+        } else {
+            message.setState(StatusCode.BUYER_ERROR);
+        }
+        return message;
+    }
 }
