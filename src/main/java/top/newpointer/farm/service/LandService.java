@@ -23,9 +23,6 @@ public class LandService {
     @Value("${maxLandNumber}")
     private Integer maxLandNumber;
 
-    @Value("${unlockedLandNumber}")
-    private Integer unlockedLandNumber;
-
     @Value("${redUpgradeCost}")
     private Integer redUpgradeCost;
     @Value("${blackUpgradeCost}")
@@ -46,10 +43,7 @@ public class LandService {
      */
     public void initLandsByFarmerId(Integer farmerId) {
         for (Integer i = 0; i < maxLandNumber; i++) {
-            Land land = null;
-            if (i < unlockedLandNumber) {
-                land.setType(Land.TYPE_YELLOW);
-            }
+            Land land = new Land(farmerId, i, Land.TYPE_YELLOW);
             landMapper.insert(land);
         }
     }
