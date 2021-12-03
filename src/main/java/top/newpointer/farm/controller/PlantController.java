@@ -65,8 +65,21 @@ public class PlantController {
         Message message = new Message();
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
         Plant plant = PlantSet.getInstance().getPlantByFarmerIdAndLandId(farmerId, landId);
-        String note = plantService.water(plant);
-        message.put("note", note);
+        plant.water();
+        return message.toString();
+    }
+
+    /**
+     * 帮好友浇水
+     * @return
+     */
+    @RequestMapping("/waterFriend")
+    public String waterFriend(HttpServletRequest request,
+                              @RequestParam("friendId") Integer friendId,
+                              @RequestParam("landId") Integer landId) {
+        Message message = new Message();
+        Plant plant = PlantSet.getInstance().getPlantByFarmerIdAndLandId(friendId, landId);
+        plant.water();
         return message.toString();
     }
 
