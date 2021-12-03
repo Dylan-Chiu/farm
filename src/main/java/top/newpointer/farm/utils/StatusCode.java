@@ -9,4 +9,8 @@ public class StatusCode {
     public static final int NUMBER_NOT_ENOUGH = -5;
     public static final int BUYER_ERROR = -6;
     public static final int LAND_OCCUPIED = -7;
+    public static final int NO_RESULT = -8;
+    public static final int NO_FRIEND_INVITATION = -9;
+    public static final int ALREADY_FRIEND = -10;
+    public static final int NOT_FRIEND = -11;
 }

@@ -1,5 +1,6 @@
 package top.newpointer.farm.service;
 
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.UpdateWrapper;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -76,5 +77,12 @@ public class FarmerService {
         int expLen = getCurrentExpLenByLevel(level);
         farmer.setLevel(level);
         farmer.setCurrentExpLen(expLen);
+    }
+
+    public Farmer searchFarmerByNickname(String nickname) {
+        QueryWrapper<Farmer> wrapper = new QueryWrapper<>();
+        wrapper.eq("nickname",nickname);
+        Farmer farmer = farmerMapper.selectOne(wrapper);
+        return farmer;
     }
 }
