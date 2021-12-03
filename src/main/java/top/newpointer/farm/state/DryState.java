@@ -34,6 +34,11 @@ public class DryState extends PlantState{
     }
 
     @Override
+    public Integer steal(Integer farmerId) {
+        return null;
+    }
+
+    @Override
     public void startAccelerate(Plant plant, Double delta) {
 
     }

@@ -32,6 +32,11 @@ public class RipeState extends PlantState {
     }
 
     @Override
+    public Integer steal(Integer farmerId) {
+        return plantService.steal(super.plant, farmerId);
+    }
+
+    @Override
     public void startAccelerate(Plant plant, Double delta) {
 
     }

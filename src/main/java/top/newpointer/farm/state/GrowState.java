@@ -50,6 +50,11 @@ public class GrowState extends PlantState{
         return "植物正在健康生长，还未到收获期！";
     }
 
+    @Override
+    public Integer steal(Integer farmerId) {
+        return null;
+    }
+
 
     @Override
     public void startAccelerate(Plant plant, Double delta) {

@@ -55,6 +55,15 @@ public class Plant {
         return this.plantState.harvest(farmerId);
     }
 
+    /**
+     *
+     * @param farmerId 偷盗者的id
+     * @return
+     */
+    public Integer steal(Integer farmerId) {
+        return this.plantState.steal(farmerId);
+    }
+
     public void dig() {
         this.plantState.dig();
     }

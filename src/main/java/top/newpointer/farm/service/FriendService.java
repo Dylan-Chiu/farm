@@ -126,8 +126,8 @@ public class FriendService {
      */
     public Boolean hasForward(Integer farmerId, Integer friendId) {
         QueryWrapper<Friend> wrapper = new QueryWrapper<>();
-        wrapper.eq("farmer_id", friendId)
-                .eq("friend_id", farmerId);
+        wrapper.eq("farmer_id", farmerId)
+                .eq("friend_id", friendId);
         Friend relation = friendMapper.selectOne(wrapper);
         if (relation == null) {
             return false;

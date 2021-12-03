@@ -60,6 +60,8 @@ public class PlantService {
     @Value("${accTime}")
     private Integer accTime;
 
+    @Value("${stealRate}")
+    private Double stealRate;
 
     public void addPlant(Integer farmerId, Integer landId, Integer speciesId) {
         double restTime = speciesMapper.selectById(speciesId).getGrowthTime();
@@ -175,6 +177,24 @@ public class PlantService {
         Integer experience = farmer.getExperience();
         Integer getExperience = speciesService.getSpeciesById(plant.getSpeciesId()).getExperience();
         farmerService.setExperience(farmerId, experience + getExperience);
+    }
+
+    /**
+     *
+     * @param plant 被偷的植物
+     * @param farmerId 偷盗者的id
+     * @return
+     */
+    public Integer steal(Plant plant, Integer farmerId) {
+        //植物原来的果实数
+        Integer beforeNumber = plant.getFruitNumber();
+        //可被偷走的果实数
+        Integer stealNumber = (int) Math.round(beforeNumber * stealRate);
+        //添加果实到背包
+        backpackFruitService.alterFruit(farmerId,plant.getSpeciesId(),stealNumber);
+        //减少果实数
+        plant.setFruitNumber(beforeNumber - stealNumber);
+        return stealNumber;
     }
 
     public void setTimeToDeath(Plant plant) {

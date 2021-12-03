@@ -81,8 +81,23 @@ public class PlantController {
         Integer fruitNumber = plant.getFruitNumber();
         Integer speciesId = plant.getSpeciesId();
         Species species = speciesService.getSpeciesById(speciesId);
-        message.put("fruitNumber",fruitNumber);
-        message.put("species",species);
+        message.put("fruitNumber", fruitNumber);
+        message.put("species", species);
+        return message.toString();
+    }
+
+    @RequestMapping("/steal")
+    public String steal(HttpServletRequest request,
+                        @RequestParam("friendId") Integer friendId,
+                        @RequestParam("landId") Integer landId) {
+        Message message = new Message();
+        Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        Plant plant = PlantSet.getInstance().getPlantByFarmerIdAndLandId(friendId, landId);
+        Integer fruitNumber = plant.steal(farmerId);
+        Integer speciesId = plant.getSpeciesId();
+        Species species = speciesService.getSpeciesById(speciesId);
+        message.put("fruitNumber", fruitNumber);
+        message.put("species", species);
         return message.toString();
     }
 
@@ -93,7 +108,7 @@ public class PlantController {
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
         Plant plant = PlantSet.getInstance().getPlantByFarmerIdAndLandId(farmerId, landId);
         Boolean isSucceed = plantService.buyAcceleration(farmerId, plant);
-        if(isSucceed == false) {
+        if (isSucceed == false) {
             message.setState(StatusCode.MONEY_NOT_ENOUGH);
         } else {
             plantService.accelerate(plant);
