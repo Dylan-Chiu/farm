@@ -1,6 +1,7 @@
 package top.newpointer.farm.state;
 
 import top.newpointer.farm.GetBeanUtil;
+import top.newpointer.farm.service.InteractLogService;
 import top.newpointer.farm.service.PlantService;
 
 public class DryState extends PlantState{

@@ -28,6 +28,9 @@ public class TokenInterceptor implements HandlerInterceptor {
             if ("lrrNb".equals(token)) {
                 request.getSession().setAttribute("farmerId", 104910850);//user1
                 return true;
+            } else if ("lrrSb".equals(token)) {
+                request.getSession().setAttribute("farmerId", -629108734);//user2
+                return true;
             }
         }
 

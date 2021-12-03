@@ -10,6 +10,7 @@ import top.newpointer.farm.Signleton.PlantSet;
 import top.newpointer.farm.mapper.PlantMapper;
 import top.newpointer.farm.mapper.SpeciesMapper;
 import top.newpointer.farm.pojo.Farmer;
+import top.newpointer.farm.pojo.InteractLog;
 import top.newpointer.farm.pojo.Land;
 import top.newpointer.farm.pojo.Species;
 import top.newpointer.farm.state.GrowState;
@@ -39,6 +40,9 @@ public class PlantService {
 
     @Autowired
     private SpeciesService speciesService;
+
+    @Autowired
+    private InteractLogService interactLogService;
 
     @Autowired
     private BackpackFruitService backpackFruitService;
@@ -155,10 +159,6 @@ public class PlantService {
         plant.setRestTime(after > 0 ? after : 0);
     }
 
-    public String water(Plant plant) {
-        return plant.water();
-    }
-
     /**
      * 收获
      *
@@ -189,11 +189,15 @@ public class PlantService {
         //植物原来的果实数
         Integer beforeNumber = plant.getFruitNumber();
         //可被偷走的果实数
-        Integer stealNumber = (int) Math.round(beforeNumber * stealRate);
+        Integer stealNumber = (int) Math.floor(beforeNumber * stealRate);
         //添加果实到背包
         backpackFruitService.alterFruit(farmerId,plant.getSpeciesId(),stealNumber);
         //减少果实数
         plant.setFruitNumber(beforeNumber - stealNumber);
+        //记录到交互日志
+        if(stealNumber != 0) {
+            interactLogService.recordSteal(farmerId, plant.getFarmerId(), plant.getSpeciesId(), stealNumber);
+        }
         return stealNumber;
     }
 

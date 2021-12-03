@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.newpointer.farm.Signleton.PlantSet;
+import top.newpointer.farm.service.InteractLogService;
 import top.newpointer.farm.state.Plant;
 import top.newpointer.farm.pojo.Species;
 import top.newpointer.farm.service.PlantService;
@@ -23,6 +24,9 @@ public class PlantController {
 
     @Autowired
     private SpeciesService speciesService;
+
+    @Autowired
+    private InteractLogService interactLogService;
 
     @RequestMapping("/sowSeed")
     public String sowSeed(HttpServletRequest request,
@@ -78,8 +82,10 @@ public class PlantController {
                               @RequestParam("friendId") Integer friendId,
                               @RequestParam("landId") Integer landId) {
         Message message = new Message();
+        Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
         Plant plant = PlantSet.getInstance().getPlantByFarmerIdAndLandId(friendId, landId);
         plant.water();
+        interactLogService.recordWater(farmerId, friendId);
         return message.toString();
     }
 
@@ -104,7 +110,7 @@ public class PlantController {
                         @RequestParam("friendId") Integer friendId,
                         @RequestParam("landId") Integer landId) {
         Message message = new Message();
-        Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");//偷盗者
         Plant plant = PlantSet.getInstance().getPlantByFarmerIdAndLandId(friendId, landId);
         Integer fruitNumber = plant.steal(farmerId);
         Integer speciesId = plant.getSpeciesId();
