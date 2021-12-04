@@ -13,4 +13,5 @@ public class StatusCode {
     public static final int NO_FRIEND_INVITATION = -9;
     public static final int ALREADY_FRIEND = -10;
     public static final int NOT_FRIEND = -11;
+    public static final int REPEAT_APPLY = -12;
 }

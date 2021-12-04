@@ -21,8 +21,14 @@ public class FriendService {
     @Autowired
     private FarmerService farmerService;
 
-    public void applyForFriend(Integer farmerId, Integer friendId) {
+    public Integer applyForFriend(Integer farmerId, Integer friendId) {
+        //查看是否已经申请过了
+        Boolean hasForward = hasForward(farmerId, friendId);
+        if(hasForward) {
+            return StatusCode.REPEAT_APPLY;
+        }
         friendMapper.insert(new Friend(farmerId, friendId));
+        return StatusCode.SUCCEED;
     }
 
     /**

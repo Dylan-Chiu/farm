@@ -40,7 +40,8 @@ public class FriendController {
                                  @RequestParam("friendId") Integer friendId) {
         Message message = new Message();
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
-        friendService.applyForFriend(farmerId, friendId);
+        Integer code = friendService.applyForFriend(farmerId, friendId);
+        message.setState(code);
         return message.toString();
     }
 
