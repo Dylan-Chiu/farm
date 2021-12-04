@@ -1,5 +1,8 @@
 package top.newpointer.farm.proxy;
 
+import java.util.List;
+
 public interface Buyer {
-    public Double sell(Integer farmerId, Integer speciesId, Integer number);
+    Double sell(Integer farmerId, Integer speciesId, Integer number);
+     Double sellList(Integer farmerId, List<Integer> speciesIdList, List<Integer> numberList);
 }

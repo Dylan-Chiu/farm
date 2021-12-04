@@ -107,4 +107,43 @@ public class BackpackFruitService {
         }
         return message;
     }
+
+    public Message sellFruitList(Integer farmerId,List<Integer> speciesIdList,List<Integer> numberList, int code) {
+        Message message = new Message();
+        //判断背包数量是否足够
+        for (int i = 0; i < speciesIdList.size(); i++) {
+            Integer speciesId = speciesIdList.get(i);
+            Integer number = numberList.get(i);
+
+            Integer beforeFruitNumber = backpackFruitService.getOneFruitNumber(farmerId, speciesId);
+            if (beforeFruitNumber < number) {
+                message.setState(StatusCode.NUMBER_NOT_ENOUGH);
+                return message;
+            }
+        }
+        //售卖
+        Double beforeMoney = farmerService.getMoney(farmerId);
+        Double money;
+        if (code == SystemBuyer.CODE) {
+            money = systemBuyer.sellList(farmerId, speciesIdList, numberList);
+            message.put("money",money);
+        } else if(code == Jack.CODE) {
+            if(beforeMoney < Jack.PROXY_MONEY) {//判断是否够代理费
+                message.setState(StatusCode.MONEY_NOT_ENOUGH);
+                return message;
+            }
+            money = jack.sellList(farmerId, speciesIdList, numberList);
+            message.put("money",money);
+        } else if( code == Tom.CODE) {
+            if(beforeMoney < Tom.PROXY_MONEY) {
+                message.setState(StatusCode.MONEY_NOT_ENOUGH);
+                return message;
+            }
+            money = tom.sellList(farmerId, speciesIdList, numberList);
+            message.put("money",money);
+        } else {
+            message.setState(StatusCode.BUYER_ERROR);
+        }
+        return message;
+    }
 }

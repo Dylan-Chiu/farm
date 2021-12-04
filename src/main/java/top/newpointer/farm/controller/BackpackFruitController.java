@@ -1,6 +1,7 @@
 package top.newpointer.farm.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -15,10 +16,12 @@ import top.newpointer.farm.service.SpeciesService;
 import top.newpointer.farm.utils.Message;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Arrays;
 import java.util.List;
+import java.util.Map;
 
 @RestController
-@RequestMapping("/BackpackFruit")
+@RequestMapping("/backpackFruit")
 public class BackpackFruitController {
 
     @Autowired
@@ -60,6 +63,20 @@ public class BackpackFruitController {
                             @RequestParam("identityCode") int code) {
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
         Message message = backpackFruitService.sellFruit(farmerId, speciesId, number, code);
+        return message.toString();
+    }
+
+    @RequestMapping("/sellFruitArray")
+    public String sellFruitArray(HttpServletRequest request,
+                                 @RequestParam(value="speciesId") Integer[] speciesIdArray,
+                                 @RequestParam(value="number") Integer[] numberArray,
+                                 @RequestParam("identityCode") int code)  {
+        Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        List<Integer> speciesList = Arrays.asList(speciesIdArray);
+        List<Integer> numberList = Arrays.asList(numberArray);
+        System.out.println(speciesList);
+        System.out.println(numberList);
+        Message message = backpackFruitService.sellFruitList(farmerId, speciesList, numberList, code);
         return message.toString();
     }
 }

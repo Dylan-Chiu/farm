@@ -4,6 +4,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import top.newpointer.farm.service.FarmerService;
 
+import java.util.List;
+
 @Service
 public class Tom extends Businessman {
 
@@ -52,6 +54,14 @@ public class Tom extends Businessman {
         Double preMoney = preSell(farmerId, speciesId, number);
         Double systemMoney = systemBuyer.sell(farmerId, speciesId, number);
         Double postMoney = postSell(farmerId, speciesId, number, systemMoney);
+        return preMoney + systemMoney + postMoney;
+    }
+
+    @Override
+    public Double sellList(Integer farmerId, List<Integer> speciesIdList, List<Integer> numberList) {
+        Double preMoney = preSell(farmerId, null,null);
+        Double systemMoney = systemBuyer.sellList(farmerId, speciesIdList, numberList);
+        Double postMoney = postSell(farmerId, null, null,systemMoney);
         return preMoney + systemMoney + postMoney;
     }
 }

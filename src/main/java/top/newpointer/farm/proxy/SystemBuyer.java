@@ -6,6 +6,8 @@ import top.newpointer.farm.service.BackpackFruitService;
 import top.newpointer.farm.service.FarmerService;
 import top.newpointer.farm.service.SpeciesService;
 
+import java.util.List;
+
 @Service
 public class SystemBuyer implements Buyer {
 
@@ -31,5 +33,28 @@ public class SystemBuyer implements Buyer {
         backpackFruitService.alterFruit(farmerId, speciesId, -number);
         //返回增加的金钱数
         return delta;
+    }
+
+    @Override
+    public Double sellList(Integer farmerId, List<Integer> speciesIdList, List<Integer> numberList) {
+        //计算收益
+        double profit = 0;
+        for (int i = 0;i<speciesIdList.size();i++) {
+            Integer speciesId = speciesIdList.get(i);
+            Integer number = numberList.get(i);
+            double oneProfit = speciesService.getSpeciesById(speciesId).getProfit();
+            oneProfit *= number;
+            profit += oneProfit;
+        }
+        //修改金币
+        Double money = farmerService.getMoney(farmerId);
+        farmerService.setMoney(farmerId, money + profit);
+        //删除果实
+        for (int i = 0; i < speciesIdList.size(); i++) {
+            Integer speciesId = speciesIdList.get(i);
+            Integer number = numberList.get(i);
+            backpackFruitService.alterFruit(farmerId, speciesId, -number);
+        }
+        return profit;
     }
 }
