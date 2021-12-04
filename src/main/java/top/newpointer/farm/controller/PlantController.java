@@ -40,9 +40,15 @@ public class PlantController {
     }
 
     @RequestMapping("/getPlantsByFarmerId")
-    public String getPlantsByFarmerId(HttpServletRequest request) {
+    public String getPlantsByFarmerId(HttpServletRequest request,
+                                      @RequestParam(value = "friendId",required = false) Integer friendId) {
         Message message = new Message();
-        Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        Integer farmerId;
+        if (friendId == null) {
+            farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        }else {
+            farmerId = friendId;
+        }
         Plant[] plants = plantService.getPlantsByFarmerId(farmerId);
         Species[] speciesArray = speciesService.getSpeciesArrayByPlants(plants);
         message.put("plantList", plants);

@@ -50,7 +50,8 @@ public class FriendService {
         //从list1里删除掉list2中存在的记录
         //friend_id为我的记录，并且不存在相反关系的记录
         for (Friend friend : list2) {
-            list1.remove(friend);
+            Friend inverse = new Friend(friend.getFriendId(), friend.getFarmerId());
+            list1.remove(inverse);
         }
 
         ArrayList<Farmer> friendFarmers = new ArrayList<>();
