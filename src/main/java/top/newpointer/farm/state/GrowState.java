@@ -3,6 +3,7 @@ package top.newpointer.farm.state;
 import lombok.SneakyThrows;
 import top.newpointer.farm.service.PlantService;
 import top.newpointer.farm.GetBeanUtil;
+import top.newpointer.farm.service.RedisService;
 import top.newpointer.farm.service.SpeciesService;
 
 public class GrowState extends PlantState{
@@ -15,6 +16,8 @@ public class GrowState extends PlantState{
 
 //  此类未注入Spring容器，则也不能使用 @Autowired获取容器中内容
     private PlantService plantService = GetBeanUtil.getBean(PlantService.class);
+
+    private RedisService redisService = GetBeanUtil.getBean(RedisService.class);
 
     @Override
     public Integer getCODE() {
@@ -33,8 +36,14 @@ public class GrowState extends PlantState{
             Integer fruitNumber = speciesService.getSpeciesById(speciesId).getFruitNumber();
             super.plant.setFruitNumber(fruitNumber);
         }
+        Double p;
+        if(redisService.get("dryProbability") == null) {
+            p = dryProbability;
+        } else {
+            p = (Double) redisService.get("dryProbability");
+        }
         //随机缺水
-        if(Math.random() < dryProbability ) {
+        if(Math.random() < p ) {
             super.plant.setPlantState(new DryState());
             plantService.setTimeToDeath(plant);
         }
