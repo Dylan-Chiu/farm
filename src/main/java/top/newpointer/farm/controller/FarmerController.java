@@ -2,6 +2,7 @@ package top.newpointer.farm.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import top.newpointer.farm.pojo.Farmer;
 import top.newpointer.farm.service.FarmerService;
@@ -17,13 +18,19 @@ public class FarmerController {
     private FarmerService farmerService;
 
     @RequestMapping("/getFarmer")
-    private String getFarmerById(HttpServletRequest request) {
+    private String getFarmerById(HttpServletRequest request,
+                                 @RequestParam(value = "friendId", required = false) Integer friendId) {
         Message message = new Message();
-        Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        Integer farmerId;
+        if(friendId == null) {
+            farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        } else {
+            farmerId = friendId;
+        }
         Farmer farmer = farmerService.getFarmerById(farmerId);
         //写入等级以及经验框大小
         farmerService.updateLevelAndExpLen(farmer);
-        message.put("farmer",farmer);
+        message.put("farmer", farmer);
         return message.toString();
     }
 }
