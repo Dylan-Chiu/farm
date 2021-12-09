@@ -21,9 +21,15 @@ public class LandController {
     private LandService landService;
 
     @RequestMapping("/getLandListByFarmerId")
-    public String getLandListByFarmerId(HttpServletRequest request) {
+    public String getLandListByFarmerId(HttpServletRequest request,
+                                        @RequestParam(value = "friendId",required = false) Integer friendId) {
         Message message = new Message();
-        Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        Integer farmerId;
+        if(friendId == null) {
+            farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        } else {
+            farmerId = friendId;
+        }
         List<Land> landList = landService.getLandListByFarmerId(farmerId);
         message.put("landList",landList);
         return message.toString();
