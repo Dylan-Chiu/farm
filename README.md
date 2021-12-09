@@ -27,3 +27,27 @@
     public static final Integer TYPE_YELLOW = 1;  
     public static final Integer TYPE_RED = 2;  
     public static final Integer TYPE_BLACK = 3;  
+
+#### 一些参数：
+    maxLandNumber = 15
+    
+    unlockedLandNumber = 15
+    
+    openTestToken = true
+    
+    dryProbability = 0.001
+    
+    experienceLength = 200
+    
+    yellowLandRate = 1
+    redLandRate = 2
+    blackLandRate = 5
+    
+    redUpgradeCost = 500
+    blackUpgradeCost = 1000
+    
+    accMoney = 500
+    accRate = 10
+    accTime = 20
+    
+    stealRate = 0.2

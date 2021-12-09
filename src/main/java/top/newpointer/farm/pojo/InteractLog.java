@@ -1,5 +1,6 @@
 package top.newpointer.farm.pojo;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,6 +17,7 @@ public class InteractLog {
     private Integer speciesId;
     private Integer number;
     private Integer type;
+    @JSONField(format = "yyyy-MM-dd HH:mm:ss")
     private Date time;
 
     public static final int STEAL = 1;
