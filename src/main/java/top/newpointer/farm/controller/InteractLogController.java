@@ -31,6 +31,7 @@ public class InteractLogController {
     public String getLogList(HttpServletRequest request) {
         Message message = new Message();
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        //查找friendId为自己的记录信息
         List<InteractLog> logList = interactLogService.getLogsByFarmId(farmerId);
         //清除秒信息
         for (InteractLog interactLog : logList) {
@@ -53,7 +54,7 @@ public class InteractLogController {
         HashMap<String, Map<String, List<InteractLog>>> map = new HashMap<>();
         for (String date : logMapList.keySet()) {
             List<InteractLog> logs = logMapList.get(date);
-            Map<Integer, List<InteractLog>> sortByFarmer = logs.stream().collect(Collectors.groupingBy(InteractLog::getFriendId));
+            Map<Integer, List<InteractLog>> sortByFarmer = logs.stream().collect(Collectors.groupingBy(InteractLog::getFarmerId));
             Map<String, List<InteractLog>> sortByFarmerString = new HashMap<>();
             for (Integer farmerIdInt : sortByFarmer.keySet()) {
                 String nickname = farmerService.getFarmerById(farmerIdInt).getNickname();
