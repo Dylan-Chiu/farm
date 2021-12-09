@@ -11,6 +11,7 @@ import top.newpointer.farm.utils.StatusCode;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping("/land")
@@ -33,6 +34,12 @@ public class LandController {
                           @RequestParam("landId") Integer landId) {
         Message message = new Message();
         Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        //判断是否满级
+        Integer type = landService.getLandByFarmerIdAndLandId(farmerId,landId).getType();
+        if(Objects.equals(type, Land.TYPE_BLACK)) {
+            message.setState(StatusCode.ALREADY_BEST_LAND);
+            return message.toString();
+        }
         Boolean isSucceed = landService.upgrade(farmerId,landId);
         if(isSucceed == false) {
             message.setState(StatusCode.MONEY_NOT_ENOUGH);
