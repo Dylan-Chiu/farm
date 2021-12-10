@@ -72,4 +72,12 @@ public class InteractLogController {
         interactLogService.deleteById(id);
         return message.toString();
     }
+
+    @RequestMapping("/deleteByFarmerId")
+    public String deleteByFarmerId(HttpServletRequest request) {
+        Integer farmerId = (Integer) request.getSession().getAttribute("farmerId");
+        Message message = new Message();
+        interactLogService.deleteByFarmerId(farmerId);
+        return message.toString();
+    }
 }

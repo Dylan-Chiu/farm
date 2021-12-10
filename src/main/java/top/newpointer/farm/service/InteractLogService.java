@@ -7,7 +7,9 @@ import top.newpointer.farm.mapper.InteractLogMapper;
 import top.newpointer.farm.pojo.InteractLog;
 
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 @Service
 public class InteractLogService {
@@ -43,5 +45,11 @@ public class InteractLogService {
 
     public void deleteById(Integer id) {
         interactLogMapper.deleteById(id);
+    }
+
+    public void deleteByFarmerId(Integer farmerId) {
+        Map<String, Object> map = new HashMap<>();
+        map.put("friend_id", farmerId);
+        interactLogMapper.deleteByMap(map);
     }
 }
