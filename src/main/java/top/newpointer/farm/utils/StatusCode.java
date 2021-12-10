@@ -15,4 +15,6 @@ public class StatusCode {
     public static final int NOT_FRIEND = -11;
     public static final int REPEAT_APPLY = -12;
     public static final int ALREADY_BEST_LAND = -13;
+    public static final int USERNAME_REPEATED = -14;
+    public static final int NICKNAME_REPEATED = -15;
 }

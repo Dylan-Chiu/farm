@@ -55,4 +55,25 @@ public class IdentityService {
         return new Message().toString();
     }
 
+    public Boolean isUsernameRepeated(String username) {
+        QueryWrapper<Farmer> wrapper = new QueryWrapper<>();
+        wrapper.eq("username", username);
+        Farmer farmer = farmerMapper.selectOne(wrapper);
+        if(farmer == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
+
+    public Boolean isNicknameRepeated(String nickname) {
+        QueryWrapper<Farmer> wrapper = new QueryWrapper<>();
+        wrapper.eq("nickname", nickname);
+        Farmer farmer = farmerMapper.selectOne(wrapper);
+        if(farmer == null) {
+            return false;
+        } else {
+            return true;
+        }
+    }
 }
