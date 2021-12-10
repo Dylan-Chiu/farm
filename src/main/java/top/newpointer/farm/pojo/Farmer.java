@@ -20,6 +20,7 @@ public class Farmer {
     private Integer level;
     private Integer experience;
     private double money;
+    private String headPortrait;
 
     @TableField(exist = false)
     private Integer currentExpLen;//当前等级的经验框长度

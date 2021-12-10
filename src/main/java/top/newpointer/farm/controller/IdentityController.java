@@ -3,12 +3,17 @@ package top.newpointer.farm.controller;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import top.newpointer.farm.pojo.Farmer;
 import top.newpointer.farm.service.IdentityService;
 import top.newpointer.farm.service.LandService;
+import top.newpointer.farm.utils.ImageUtil;
+import top.newpointer.farm.utils.Message;
 
 import javax.servlet.http.HttpServletRequest;
+import java.awt.*;
 
 @RestController
 @RequestMapping("/identity")
@@ -24,7 +29,17 @@ public class IdentityController {
     }
 
     @RequestMapping("/register")
-    public String register(@RequestBody Farmer farmer) {
+    public String register(@RequestParam String username,
+                           @RequestParam String password,
+                           @RequestParam String nickname,
+                           @RequestParam(value = "img", required = false) MultipartFile img) {
+        //存储头像图片
+        String imgName = ImageUtil.savePortraitImg(img);
+        Farmer farmer = new Farmer();
+        farmer.setUsername(username);
+        farmer.setPassword(password);
+        farmer.setNickname(nickname);
+        farmer.setHeadPortrait(imgName);
         String message = identityService.register(farmer);
         return message;
     }

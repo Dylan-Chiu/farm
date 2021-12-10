@@ -18,6 +18,7 @@ public class AuthConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(initAuthInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/identity/**","/**/error","/test/**","/static/**");
+                .excludePathPatterns("/identity/**","/**/error","/test/**","/static/**"
+                ,"/farmer/getHeadPortrait");//放行获取头像
     }
 }
