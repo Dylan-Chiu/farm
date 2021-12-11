@@ -37,6 +37,7 @@ public class BackpackFruitService {
 
     public List<BackpackFruit> getFruitsByFarmerId(Integer farmerId) {
         QueryWrapper<BackpackFruit> wrapper = new QueryWrapper<>();
+        wrapper.ne("number", 0);
         wrapper.eq("farmer_id",farmerId);
         List<BackpackFruit> fruits = backpackFruitMapper.selectList(wrapper);
         return fruits;
