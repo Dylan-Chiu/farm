@@ -10,7 +10,7 @@ import top.newpointer.farm.interceptor.TokenInterceptor;
 public class AuthConfig implements WebMvcConfigurer {
 
     @Bean
-    public TokenInterceptor initAuthInterceptor(){
+    public TokenInterceptor initAuthInterceptor() {
         return new TokenInterceptor();
     }
 
@@ -18,7 +18,8 @@ public class AuthConfig implements WebMvcConfigurer {
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(initAuthInterceptor())
                 .addPathPatterns("/**")
-                .excludePathPatterns("/identity/**","/**/error","/test/**","/static/**"
-                ,"/farmer/getHeadPortrait");//放行获取头像
+                .excludePathPatterns("/identity/**", "/**/error", "/test/**", "/static/**",
+                        "/",
+                        "/farmer/getHeadPortrait");//放行获取头像
     }
 }
