@@ -14,12 +14,14 @@ public class RefreshTask {
     @Value("${dryProbability}")
     private Double waterProbability;
 
+    private PlantSet observers = PlantSet.getInstance();
+
     @Scheduled(cron = "* * * * * *")//每秒执行一次
     public void refresh() {
         System.out.println(new Date());
         //更新时间
-        PlantSet.getInstance().updateTime();
+        observers.updateTime();
         //更新数据库
-        PlantSet.getInstance().updatePlantsIntoDatabase();
+        observers.updatePlantsIntoDatabase();
     }
 }
